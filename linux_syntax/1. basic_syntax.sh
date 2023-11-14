@@ -96,3 +96,6 @@ tail -5 first_file.txt
 
 # 권한 chmod 777(모든 권한)
 # 스크립트 실행 방법 ./myscript.sh
+
+# 이전 디렉토리로 돌아가기
+cd -
