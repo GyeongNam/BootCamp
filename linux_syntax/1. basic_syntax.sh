@@ -2,6 +2,12 @@
 # 사용자가 위치에 있는 폴더 경로 출력
 pwd
 
+# 현재경로
+.
+
+# 이전경로
+..
+
 # 현재위치 파일,폴더 목록
 ls 
 
@@ -10,6 +16,9 @@ ls -l
 
 # + 숨김파일
 ls -al
+
+# +시간순으로 정렬
+ls -alrt
 
 # 디렉토리(폴더) 생성
 mkdir jo_dir
@@ -25,6 +34,9 @@ cd /
 
 # 다시 기존 폴더로 이동 (절대경로 이용)
 cd /home/gyeongnam/jo_dir
+
+# 이전 디렉토리로 돌아가기
+cd -
 
 # 상위 폴더로 이동
 cd ..
@@ -86,16 +98,22 @@ head -5 first_file.txt
 # 텍스트로 작성된 파일의 하위 n행 출력 (기본 10행)
 tail -5 first_file.txt
 
-# 편집기 nano myscript.sh 
-# mkdir jo_dir
-# cd jo_dir
-# touch first_file.txt
-# cat first_file.txt
-# echo "hello world" > first_file.txt
-# cat first_file.txt
+# 파이프라인 왼쪽 명령어 실행 값을 오른쪽 명령어로 전달
+"명령어1" | "명령어2"
 
-# 권한 chmod 777(모든 권한)
-# 스크립트 실행 방법 ./myscript.sh
+# 쉘 제어문
 
-# 이전 디렉토리로 돌아가기
-cd -
+if[조건] ; then
+    # 참일때
+    elif [다른조건] ; then
+    # 첫 조건이 거짓이고 다른 조건이 참일 때
+    else
+    # 모든 조건이 거짓일 때
+fi
+
+# for 반복문
+
+for [변수] in [항목들]; 
+do
+# 반복할 예정
+done
