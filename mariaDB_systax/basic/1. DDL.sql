@@ -47,10 +47,6 @@ show create table posts;
 --    CONSTRAINT `post_ibfk_1` FOREIGN KEY (`auth_id`) REFERENCES `author` (`id`)
 --  ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci
 
--- 테이블 제약조건 조회
-select * from information_schema.key_column_usage
-where table_name = 'posts';
-
 -- 테이블 인덱스 조회
 show index from posts;
 
