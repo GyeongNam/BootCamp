@@ -14,3 +14,6 @@ commit;
 insert into author(name, email) values('test', 'test@naver,com');
 insert into posts(id, title, content, auth_id) values('20','hello', 'hello is', 1);
 rollback;
+
+-- 데베 4일차
+
