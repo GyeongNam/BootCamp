@@ -5,3 +5,5 @@ git commit -m "git 테스트"
 git push origin main
 git branch 
 
+git status
+git log
