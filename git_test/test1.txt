@@ -15,7 +15,7 @@ git remote remove origin
 
 git config --list
 
-git push -all origin
+git push -all
 
 git init
 git remote add origin https://github.com/GyeongNam/test_spring2.git
@@ -26,3 +26,29 @@ git push -u origin main
 
 git config --global user.name "이름"
 git config --global user.email "이메일"
+
+git commit -am "커밋메시지"
+
+git push origin main [branch]
+
+git log --oneline
+
+강제 업로드
+--force
+
+git pull origin main
+
+git checkout .
+git clean -fdx
+
+git checkout . | clean -fdx
+
+git reset
+git restore -staged .
+
+git reset HEAD~1
+    unstaged 상태로 만듬
+git reset --soft HAED~!
+    staged 상태 유지
+
+git revert [커밋id]
