@@ -52,3 +52,14 @@ git reset --soft HAED~!
     staged 상태 유지
 
 git revert [커밋id]
+
+git diff
+
+git diff [커밋id] [커밋id]
+git diff main origin/main
+
+git fetch origin main
+
+git diff main fetch_head
+
+git merge fetch_head
