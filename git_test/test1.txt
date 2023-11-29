@@ -7,3 +7,22 @@ git branch
 
 git status
 git log
+
+git remote add origin [저장소 주소]
+git remote set-url origin https://github.com/GyeongNam/test_spring1.git
+git checkout -b main
+git remote remove origin
+
+git config --list
+
+git push -all origin
+
+git init
+git remote add origin https://github.com/GyeongNam/test_spring2.git
+git checkout -b main
+git add .
+git commit -m "first commit"
+git push -u origin main
+
+git config --global user.name "이름"
+git config --global user.email "이메일"
