@@ -1,5 +1,3 @@
-hello world
-
 git add .
 git commit -m "git 테스트" 
 git push origin main
