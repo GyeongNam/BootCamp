@@ -61,3 +61,15 @@ git fetch origin main
 git diff main fetch_head
 
 git merge fetch_head
+
+git stash list
+
+git stash show
+
+git stash show -p 인덱스 : 상세조회
+
+git stash pop
+
+git stash apply
+
+git stash clear
