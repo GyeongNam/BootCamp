@@ -73,3 +73,11 @@ git stash pop
 git stash apply
 
 git stash clear
+
+git tag 버전명
+
+git push origin 버전명
+
+add, commit, psuh와는 별도로 진행
+
+git branch 브랜치명
