@@ -80,4 +80,14 @@ git push origin 버전명
 
 add, commit, psuh와는 별도로 진행
 
-git branch 브랜치명
+git fetch origin
+
+git branch
+
+git branch 특정브랜치 명  // 생성
+
+git checkout 브랜치 명
+
+git checkout -b 브랜치 명 // 새 브랜치를 생성하고 해당 브랜치로 전환
+
+git branch -D 브랜치 명 // 삭제
