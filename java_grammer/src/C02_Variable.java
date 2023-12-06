@@ -73,6 +73,9 @@ public class C02_Variable {
 //        int ch1_num = (int)ch1;
 //        System.out.println(ch1_num);
 //
+//        // cart형 알파벳 비교를 위한 묵시적 타입 변환
+//        System.out.println('a'<'A');
+//
 //        int my_int1 = 10;
 //        double my_double1 = my_int1;
 //        System.out.println(my_double1);

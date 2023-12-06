@@ -63,5 +63,27 @@ public class C03_Operator {
             System.out.println("조건은 참입니다.");
         }
 
+        // & | ^ ~
+        n1 = 5; // 0101
+        n2 = 6; // 0110
+        System.out.println(n1 & n2);    // 4 = 0100
+        System.out.println(n1 | n2);    // 7 = 0111
+        System.out.println(n1 ^ n2);    // 3 = 0011
+        System.out.println(~n1);        // 첫째자리가 음/양인데, 음으로 변환
+
+        // << >> , 곱셈과 나눗셈의 효과
+        System.out.println(n1 << 1);
+        System.out.println(n2 >> 1);
+
+        a = 13; // 01101
+        b = 9;  // 01001
+
+        while (b != 0){
+            int same_index = a & b;
+            a = a ^ b;
+            b = same_index << 1;
+        }
+        System.out.println(a);
+
     }
 }
