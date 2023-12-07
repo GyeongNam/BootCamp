@@ -82,14 +82,65 @@ public class C05_LoopStatements {
 //        }
 //    }
 
+//    public static void main(String[] args) {
+//        int[][] arr = {{1,2,4,5},{5,6,7,8}};
+//        for(int i = 0; i<arr.length; i++){
+//            for (int j = 0; j<arr[i].length; j++){
+//                System.out.print(arr[i][j]);
+//            }
+//            System.out.println();
+//        }
+//    }
+
+//    public static void main(String[] args) {
+//        loop1:
+//        for (int i = 0; i<5; i++){
+//            loo2:
+//            for (int j = 0; j<5; j++){
+//                System.out.println("hello world");
+//                if( j == 2){
+//                    break ;
+//                }
+//            }
+//        }
+//    }
+
+//    public static void main(String[] args) {
+//        int[][] matrix = {{1,2,3,4}, {5,6,7}, {8,9},{10,11,12,13,14}};
+//        int targert = 11;
+//        loop1:
+//        for (int i = 0; i<matrix.length; i++){
+//            loop2:
+//            for (int j = 0; j<matrix[i].length; j++){
+//                if(matrix[i][j] == targert){
+//                    System.out.println("11을 찾아서 종료합니다. i = " + i + " j = " + j);
+//                    break loop1;
+//                }
+//                System.out.println("i : " + i + ", j : " + j + " = " + matrix[i][j]);
+//            }
+//        }
+//    }
+
     public static void main(String[] args) {
-        int[][] arr = {{1,2,4,5},{5,6,7,8}};
-        for(int i = 0; i<arr.length; i++){
-            for (int j = 0; j<arr[i].length; j++){
-                System.out.print(arr[i][j]);
+        int answer = 0;
+        loop1 :
+        for(int i = 1; i<=20; i++){
+            int count = 0;
+            System.out.println(i+"의 약수");
+            loop2:
+            for (int j = 1; j<=i; j++){
+                if(i%j==0){
+                    System.out.println(j);
+                    count++;
+                }
+                if(count == 5){
+                    answer = i;
+                    break loop1;
+                }
             }
-            System.out.println();
+            System.out.println("약수의 갯수 : "+ count);
         }
+        System.out.println("answer : "+ answer);
     }
 }
 
