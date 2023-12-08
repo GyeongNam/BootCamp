@@ -116,7 +116,7 @@ public class C07_Array {
             Arr[i] = tmp2;
         }
         System.out.println(Arrays.toString(Arr));
-
+ 
         // Stream Api, lambda를 활용한 내림차순 정렬;
         int[] Arr2 = {5,1,2,7,3,1,2};
         int[] new_Arr2 = Arrays.stream(Arr2)    // Arr2를 대상으로 Stream 객체 생성
