@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
-
+import java.util.*;
 public class C06_String {
 //    public static void main(String[] args) {
 //        // 참조 자료형: 기본 자료형을 제외한 모든 자료형
@@ -173,6 +173,35 @@ public class C06_String {
         arr[0] = "hello";
         arr[1] = "hello";
         System.out.println(Arrays.toString(arr));
+
+        String[] sarr = {"a","b","c"};
+        System.out.println(String.join(",", sarr));
+
+        // String과 int의 형변환
+        int a1 = 0;
+        String a1_str1 = Integer.toString(a1);
+        String a1_str2 = String.valueOf(a1);
+        System.out.println(a1_str1);
+        System.out.println(a1_str2);
+
+        // 문저열을 추가하거나 변경할 떼 주로 사용하는 객체 : StringBuffer
+        // append , insert, substring, delete, StringBuilder
+        StringBuffer str = new StringBuffer("hello");
+        System.out.println(str);
+
+        str.append(" world");   // +=
+        System.out.println(str);
+
+        str.insert( 6,"java ");
+        System.out.println(str);
+
+        System.out.println(str.substring(6, 10));
+        System.out.println(str.delete(6,10));
+
+        StringBuilder str2 = new StringBuilder("hello");
+        str2.append(" world");
+        System.out.println(str2);
+
 
     }
 
