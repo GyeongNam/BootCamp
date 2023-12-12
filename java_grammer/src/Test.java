@@ -24,29 +24,33 @@ public class Test {
 //    static void test(List list){
 //        list.add("hell02");
 //    }
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        StringTokenizer st;
-        int size = Integer.parseInt(br.readLine());
-        for (int i = 0; i < size; i++) {
-            st = new StringTokenizer(br.readLine());
-            bw.write(Integer.parseInt(st.nextToken())+Integer.parseInt(st.nextToken())+ "\n");
-        }
-        bw.close();
-//        String size = br.readLine();
-//        int i = Integer.parseInt(br.readLine());
-//        if(M < 45) {
-//            H--;
-//            M= 60 - (45 - M);
-//            if(H < 0) {
-//                H = 23;
-//            }
-//            System.out.println(H + " " + M);
-//        }
-//        else {
-//            System.out.println(H + " " + (M - 45));
-//        }
 
+//    int search = sc.nextInt();
+//    int size = sc.nextInt();
+//    int[] arr = new int[size];
+//        for (int i = 0; i < arr.length; i++) {
+//        arr[i] = sc.nextInt();
+//    }
+    public static void main(String[] args) throws IOException {
+        Scanner sc = new Scanner(System.in);
+        int x_size = sc.nextInt();
+        int y_size = sc.nextInt();
+        int[][] arr = new int[x_size][y_size];
+        for(int i = 0; i<x_size; i++){
+            for (int j = 0; j < y_size; j++) {
+                arr[i][j] = sc.nextInt();
+            }
+        }
+        for(int i = 0; i<x_size; i++){
+            for (int j = 0; j < y_size; j++) {
+                arr[i][j] += sc.nextInt();
+            }
+        }
+        for (int[] num :arr){
+            for(int n : num){
+                System.out.println(n);
+            }
+        }
     }
 }
+
