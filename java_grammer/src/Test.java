@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static java.util.logging.Logger.global;
 
@@ -34,47 +35,40 @@ public class Test {
 //        arr[i] = sc.nextInt();
 //    }
     public static void main(String[] args) throws IOException {
-        solution(new int[]{1, 2, 3, 9, 10, 12});
-
+        System.out.println("1번");
+        solution(new int[]{1, 2, 3, 9, 10, 12}, 7);
+        System.out.println("2번");
+        solution(new int[]{1, 1, 1, 1, 1}, 3);
+        System.out.println("3번");
+        solution(new int[]{0, 0, 5, 5, 5}, 2);
     }
 
-    public static int solution(int[] scoville) {
-        int answer = -1;
-        int k = 7;
-//        int answer = 0;
-//        int[][] dp = new int [triangle.length][];
-//        for(int i = 0; i<triangle.length; i++){
-//            dp[i] = new int[triangle[i].length];
-//            for (int j = 0; j < triangle[i].length; j++) {
-//                dp[i][j] += triangle[i][j];
-////                dp[i+1][j] = dp[i][j] + triangle[i][j];
-////                dp[i+1][j+1] = dp[i][j] + triangle[i][j];
-//            }
-//        }
-//
-//        for (int[] d:dp){
-//            System.out.println(Arrays.toString(d));
-//        }
-//        System.out.println(answer);
-        Queue<Integer> q = new PriorityQueue<>();
-        int sum = 0;
-        for(int n : scoville){
-            q.add(n);
-        }
+    public static int solution(int[] scoville, int K) {
+        int answer = 0;
+        TreeSet<Integer> set = new TreeSet<>(
+                new Comparator<Integer>() {
+                    @Override
+                    public int compare(Integer o1, Integer o2) {
+                        return o1.compareTo(o2);
+                    }
+                }
+        );
 
-        for(int i = 0; i<q.size(); i++){
-            if(q.peek()>k){
-                break;
+        for(int n : scoville){
+            set.add(n);
+        }
+        System.out.println(set);
+        while (set.first() < K){
+            if(set.size() == 1){
+                return -1;
             }
-            sum += q.poll() + q.poll() * 2;
-            q.add(sum);
+            set.add(set.first() + set.higher(set.first())*2);
+            set.remove(set.first());
+            set.remove(set.first());
             answer++;
         }
-
-        System.out.println(q.peek());
-
         System.out.println(answer);
-
+        System.out.println();
         return answer;
     }
 
