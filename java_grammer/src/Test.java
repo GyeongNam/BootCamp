@@ -1,11 +1,6 @@
 import java.io.*;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
-import java.util.stream.Collectors;
+
 
 import static java.util.logging.Logger.global;
 
@@ -35,42 +30,47 @@ public class Test {
 //        arr[i] = sc.nextInt();
 //    }
     public static void main(String[] args) throws IOException {
-        System.out.println("1번");
-        solution(new int[]{1, 2, 3, 9, 10, 12}, 7);
-        System.out.println("2번");
-        solution(new int[]{1, 1, 1, 1, 1}, 3);
-        System.out.println("3번");
-        solution(new int[]{0, 0, 5, 5, 5}, 2);
+        solution(new int[][] {{7},{3,8},{8,1,0,},{2,7,4,4},{4, 5, 2, 6, 5}});
     }
 
-    public static int solution(int[] scoville, int K) {
+    public static int solution(int[][] triangle) {
         int answer = 0;
-        TreeSet<Integer> set = new TreeSet<>(
-                new Comparator<Integer>() {
-                    @Override
-                    public int compare(Integer o1, Integer o2) {
-                        return o1.compareTo(o2);
-                    }
-                }
-        );
 
-        for(int n : scoville){
-            set.add(n);
-        }
-        System.out.println(set);
-        while (set.first() < K){
-            if(set.size() == 1){
-                return -1;
+        int[][] dp = new int [triangle.length][];
+        for(int i = 0; i<triangle.length; i++){
+            dp[i] = new int[triangle[i].length];
+            for (int j = 0; j < triangle[i].length; j++) {
+                dp[i][j] += triangle[i][j];
             }
-            set.add(set.first() + set.higher(set.first())*2);
-            set.remove(set.first());
-            set.remove(set.first());
-            answer++;
+        }
+
+        for(int i = 0; i<dp.length-1; i++){
+            for (int j = 0; j < triangle[i].length; j++) {
+                if(i == 0){
+                    dp[i+1][j] += dp[i][j];
+                    dp[i+1][j+1] += dp[i][j];
+                }else{
+                    if(dp[i+1][j] < dp[i][j] + triangle[i+1][j]){
+                        dp[i+1][j] = dp[i][j] + triangle[i+1][j];
+                    }
+                    dp[i+1][j+1] += dp[i][j];
+                }
+            }
+        }
+        answer = Arrays.stream(dp[dp.length-1]).max().getAsInt();
+        for (int[] d:triangle){
+            System.out.println(Arrays.toString(d));
+        }
+        for (int[] d:dp){
+            System.out.println(Arrays.toString(d));
         }
         System.out.println(answer);
-        System.out.println();
         return answer;
     }
+
+//    public static boolean solution(String s) {
+
+//    }
 
 
 }

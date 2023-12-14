@@ -1,7 +1,6 @@
 import java.util.*;
-import java.util.concurrent.ArrayBlockingQueue;
 
-public class C11_Stack_Queue {
+public class C11_Stack_Queue_Deque {
 //    public static void main(String[] args) {
 //        Stack<Integer> stack = new Stack<>();
 //        stack.push(10);
@@ -95,16 +94,34 @@ public class C11_Stack_Queue {
 //        System.out.println(q);
 //    }
 
-    public static void main(String[] args) {
-        // 우선순위 큐
-        Queue<Integer> pq = new PriorityQueue<>();
-        pq.add(3);
-        pq.add(2);
-        pq.add(1);
-        pq.add(4);
-        pq.add(5);
+//    public static void main(String[] args) {
+//        // 우선순위 큐
+//        Queue<Integer> pq = new PriorityQueue<>();
+//        pq.add(3);
+//        pq.add(2);
+//        pq.add(1);
+//        pq.add(4);
+//        pq.add(5);
+//
+//        System.out.println(pq);
+//    }
 
-        System.out.println(pq);
+    public static void main(String[] args) {
+
+        // 양뱡향에서 데이터 삽입/제거 할 수 있다.
+        // 성능 빠름
+        Deque<Integer> d = new ArrayDeque<>();
+        d.addFirst(10);
+        d.addLast(20);
+        System.out.println(d);
+        d.addLast(30);
+        System.out.println(d);
+
+        System.out.println(d.pollFirst());
+        System.out.println(d.pollLast());
+        System.out.println(d);
+
     }
+
 
 }
