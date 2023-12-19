@@ -43,23 +43,34 @@ public class Test {
 
     public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
-        long y = 0;
-        int count = 0;
-        long yu = sc.nextLong();
-        long yd = sc.nextLong();
-        long ye = sc.nextLong();
-//        while (y<ye){
-//            count++;
-//            y += yu;
-//            if(y >= ye){
-//                break;
-//            }
-//            y -= yd;
-//        }
+        solution(new int[][] {{1,0,1,1,1}, {1,0,1,0,1}, {1,0,1,1,1}, {1,1,1,0,1}, {0,0,0,0,1}});
+        solution(new int[][] {{1,0,1,1,1}, {1,0,1,0,1}, {1,0,1,1,1}, {1,1,1,0,0}, {0,0,0,0,1}});
 
-        
+    }
 
-        System.out.println(count);
+    public static int solution(int[][] maps) {
+        int answer = 0;
+        boolean[][] visited = new boolean[maps.length][];
+        for (int i = 0; i<maps.length; i++){
+            visited[i]  = new boolean[maps[i].length];
+        }
+
+        bfs(maps, visited , 0 );
+
+
+        System.out.println(answer);
+        return answer;
+    }
+
+    public static void bfs(int[][] maps, boolean[][] visited, int i){
+        System.out.println();
+        for (int j = i; j < maps.length; j++) {
+            if(visited[i][j]){
+                visited[i][j] = true;
+                bfs(maps, visited, j);
+                visited[i][j] = false;
+            }
+        }
     }
 }
 

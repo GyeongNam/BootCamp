@@ -1,6 +1,6 @@
 package C12_ClassLecture;
 
-public class C1204_Class3 {
+public class C1203_Class3 {
     public static void main(String[] args) {
         BankAccount sim = new BankAccount("12345");
         sim.deposit(10000);
