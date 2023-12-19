@@ -18,7 +18,6 @@ public class C1204_Constructor {
             this.year = year;
             this.month = month;
             this.day = day;
-            System.out.println("성");
             System.out.println( this.year);
             System.out.println( this.month);
             System.out.println( this.day);
