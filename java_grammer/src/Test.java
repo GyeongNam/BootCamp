@@ -43,38 +43,33 @@ public class Test {
 
     public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
-        Map<Integer, Integer> mapx = new HashMap<>();
-        Map<Integer, Integer> mapy = new HashMap<>();
-        int x = 0,y = 0;
-        int size = sc.nextInt();
-        for (int i = 0; i<size; i++){
-            x = sc.nextInt();
-            y = sc.nextInt();
-            mapx.put(x, mapx.getOrDefault(x, 0)+1);
-            mapy.put(y, mapy.getOrDefault(y, 0)+1);
-        }
-        int x_min = x;
-        int x_max = x;
-        int y_min = y;
-        int y_max = y;
+        int[] arr = new int[3];
+        while (true){
+            arr[0] = sc.nextInt();
+            arr[1] = sc.nextInt();
+            arr[2] = sc.nextInt();
 
-        for (Map.Entry<Integer, Integer> entry : mapx.entrySet()) {
-            if(entry.getKey() > x_max ){
-                x_max = entry.getKey();
+            if(arr[0] == 0 && arr[1] == 0 && arr[2] == 0) {
+                break;
             }
-            if(entry.getKey() < x_min){
-                x_min = entry.getKey();
+
+            Arrays.sort(arr);
+
+            if(arr[2] >= arr[0] + arr[1]) {
+                System.out.println("Invalid");
+            }else if(arr[0] == arr[1] && arr[1] == arr[2]) {
+                System.out.println("Equilateral");
+            }else if(arr[0] == arr[1] || arr[1] == arr[2] || arr[0] == arr[2]) {
+                System.out.println("Isosceles");
+            }else {
+                System.out.println("Scalene");
             }
         }
-        for (Map.Entry<Integer, Integer> entry : mapy.entrySet()) {
-            if(entry.getKey() > y_max ){
-                y_max = entry.getKey();
-            }
-            if(entry.getKey() < y_min){
-                y_min = entry.getKey();
-            }
-        }
-        System.out.println((x_max-x_min)*(y_max-y_min));
+
+
+
+
+
 //        System.out.println(x_max-x_min+" "+y);
 
 
