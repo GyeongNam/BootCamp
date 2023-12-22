@@ -42,28 +42,62 @@ public class Test {
 //    }
 
     public static void main(String[] args) throws IOException {
-        Scanner sc = new Scanner(System.in);
-        String str = sc.nextLine();
-        int str_length = str.length();
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
+        int N = Integer.parseInt(br.readLine());
 
-        int N = Integer.parseInt(str);
-        int result = 0;
+        int[] arr = new int[N];
+        HashMap<Integer,Integer> map = new HashMap<>();
+        StringTokenizer st= new StringTokenizer(br.readLine()," ");
 
-        for(int i = (N - (str_length * 9)); i < N; i++) {
-            int number = i;
-            int sum = 0;
-            while(number != 0) {
-                sum += number % 10;
-                number /= 10;
-            }
-            if(sum + i == N) {
-                result = i;
-                break;
-            }
+        for(int i=0; i<N; i++){
+            arr[i]=Integer.parseInt(st.nextToken());
         }
 
-        System.out.println(result);
 
+        int M = Integer.parseInt(br.readLine());
+        int[] arr2 = new int[M];
+        st= new StringTokenizer(br.readLine()," ");
+        for(int i=0; i<M; i++){
+            arr2[i]=Integer.parseInt(st.nextToken());
+        }
+        int[] new_arr = arr.clone();
+
+        int index = 0;
+        for(int i=0; i<M; i++) {
+            if(!map.containsKey(arr2[i]))
+                map.put(arr2[i], index++);
+        }
+        System.out.println(map);
+        System.out.println(Arrays.toString(arr2));
+        Arrays.sort(new_arr);
+        Arrays.sort(arr2);
+
+        System.out.println(Arrays.toString(new_arr));
+        System.out.println(Arrays.toString(arr2));
+
+
+
+
+//        int[] new_arr = arr.clone();
+//        Arrays.sort(new_arr);
+//        int index=0;
+//
+//        for(int i=0; i<N; i++) {
+//            if(!map.containsKey(new_arr[i]))
+//                map.put(new_arr[i], index++);
+//        }
+//
+//        for(int i=0; i<N; i++){
+//            sb.append(map.get(arr[i])).append(" ");
+//        }
+//
+//        System.out.print(sb);
+
+
+//        for (String[] l :arr){
+//            System.out.println(l[0] + " "+ l[1]);
+//        }
 
 
 
