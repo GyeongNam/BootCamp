@@ -43,38 +43,31 @@ public class Test {
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
-        int N = Integer.parseInt(br.readLine());
+//        StringTokenizer st;
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        HashSet<String> set = new HashSet<>();
 
-        int[] arr = new int[N];
-        HashMap<Integer,Integer> map = new HashMap<>();
-        StringTokenizer st= new StringTokenizer(br.readLine()," ");
+        int N = Integer.parseInt(st.nextToken());
+//        int M = Integer.parseInt(st.nextToken());
+        for (int i = 0; i < N; i++) {
+            String[] str = br.readLine().split(" ");
+            set.add(br.readLine());
 
-        for(int i=0; i<N; i++){
-            arr[i]=Integer.parseInt(st.nextToken());
         }
+        System.out.println(set);
 
 
-        int M = Integer.parseInt(br.readLine());
-        int[] arr2 = new int[M];
-        st= new StringTokenizer(br.readLine()," ");
-        for(int i=0; i<M; i++){
-            arr2[i]=Integer.parseInt(st.nextToken());
-        }
-        int[] new_arr = arr.clone();
+//        int count = 0;
+//        for (int i = 0; i < M; i++) {
+//            if (set.contains(br.readLine())){
+//                count++;
+//            }
+//        }
+//        System.out.println(count);
 
-        int index = 0;
-        for(int i=0; i<M; i++) {
-            if(!map.containsKey(arr2[i]))
-                map.put(arr2[i], index++);
-        }
-        System.out.println(map);
-        System.out.println(Arrays.toString(arr2));
-        Arrays.sort(new_arr);
-        Arrays.sort(arr2);
 
-        System.out.println(Arrays.toString(new_arr));
-        System.out.println(Arrays.toString(arr2));
+//        System.out.println(Arrays.toString(new_arr));
+//        System.out.println(Arrays.toString(arr2));
 
 
 
