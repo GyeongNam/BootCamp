@@ -42,19 +42,22 @@ public class Test {
 //    }
 
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-//        StringTokenizer st;
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        HashSet<String> set = new HashSet<>();
-
-        int N = Integer.parseInt(st.nextToken());
-//        int M = Integer.parseInt(st.nextToken());
-        for (int i = 0; i < N; i++) {
-            String[] str = br.readLine().split(" ");
-            set.add(br.readLine());
-
-        }
-        System.out.println(set);
+//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+////        StringTokenizer st;
+//        StringTokenizer st = new StringTokenizer(br.readLine());
+//        HashSet<String> set = new HashSet<>();
+//
+//        int N = Integer.parseInt(st.nextToken());
+////        int M = Integer.parseInt(st.nextToken());
+//        for (int i = 0; i < N; i++) {
+//            String[] str = br.readLine().split(" ");
+//            if(str[1].equals("enter")){
+//                set.add(str[0]);
+//            }else if(str[1].equals("leave")){
+//                set.remove(str[0]);
+//            }
+//        }
+//        set.stream().sorted((o1, o2) -> o2.compareTo(o1)).forEach(System.out::println);
 
 
 //        int count = 0;
@@ -99,8 +102,9 @@ public class Test {
 
 
 //        Scanner sc = new Scanner(System.in);
-//        solution(new int[][] {{1,0,1,1,1}, {1,0,1,0,1}, {1,0,1,1,1}, {1,1,1,0,1}, {0,0,0,0,1}});
-//        solution(new int[][] {{1,0,1,1,1}, {1,0,1,0,1}, {1,0,1,1,1}, {1,1,1,0,0}, {0,0,0,0,1}});
+        solution(2,9);
+        solution(2,1);
+        solution(2,8);
 
     }
     public static boolean isPrime(int num) {
@@ -118,29 +122,34 @@ public class Test {
     }
 
 
-    public static int solution(int[][] maps) {
-        int answer = 0;
-        boolean[][] visited = new boolean[maps.length][];
-        for (int i = 0; i<maps.length; i++){
-            visited[i]  = new boolean[maps[i].length];
+    public static int[] solution(int n, int s) {
+        if(n>s){
+            return new int[]{-1};
         }
-
-        bfs(maps, visited , 0 );
-
-
-        System.out.println(answer);
+        int[] answer = new int[n];
+        for(int i=0; i<answer.length; i++){
+            answer[i] = s/n;
+        }
+        int idx = n - 1;
+        for(int i=0; i<s%n; i++){
+            answer[idx] ++;
+            idx--;
+        }
+        System.out.println(Arrays.toString(answer));
         return answer;
     }
 
-    public static void bfs(int[][] maps, boolean[][] visited, int i){
-        System.out.println();
-        for (int j = i; j < maps.length; j++) {
-            if(visited[i][j]){
-                visited[i][j] = true;
-                bfs(maps, visited, j);
-                visited[i][j] = false;
-            }
-        }
-    }
+
+
+//    public static void bfs(int[][] maps, boolean[][] visited, int i){
+//        System.out.println();
+//        for (int j = i; j < maps.length; j++) {
+//            if(visited[i][j]){
+//                visited[i][j] = true;
+//                bfs(maps, visited, j);
+//                visited[i][j] = false;
+//            }
+//        }
+//    }
 }
 
