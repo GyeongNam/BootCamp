@@ -42,21 +42,30 @@ public class Test {
 //    }
 
     public static void main(String[] args) throws IOException {
-//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-////        StringTokenizer st;
-//        StringTokenizer st = new StringTokenizer(br.readLine());
-//        HashSet<String> set = new HashSet<>();
-//
-//        int N = Integer.parseInt(st.nextToken());
-////        int M = Integer.parseInt(st.nextToken());
-//        for (int i = 0; i < N; i++) {
-//            String[] str = br.readLine().split(" ");
-//            if(str[1].equals("enter")){
-//                set.add(str[0]);
-//            }else if(str[1].equals("leave")){
-//                set.remove(str[0]);
-//            }
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
+        StringBuilder sb = new StringBuilder();
+        ArrayList<String> list = new ArrayList<>();
+        HashMap<Integer, Integer> map = new HashMap<>();
+        st = new StringTokenizer(br.readLine());
+        int N = Integer.parseInt(st.nextToken());
+        int M = Integer.parseInt(st.nextToken());
+
+        for (int i=0; i<N+M; i++) {
+            list.add(br.readLine());
+        }
+        int size = Integer.parseInt(br.readLine());
+        for (int i=0; i<size; i++) {
+//            sb.append();
+        }
+        System.out.println(sb);
+
+//        for (int i=0; i<M; i++) {
+//            int num = Integer.parseInt(st.nextToken());
+//            sb.append(map.get(num) == null ? "0 " : map.get(num)+" ");
 //        }
+//        System.out.println(map);
+//        System.out.println(sb);
 //        set.stream().sorted((o1, o2) -> o2.compareTo(o1)).forEach(System.out::println);
 
 
@@ -74,37 +83,10 @@ public class Test {
 
 
 
-
-//        int[] new_arr = arr.clone();
-//        Arrays.sort(new_arr);
-//        int index=0;
-//
-//        for(int i=0; i<N; i++) {
-//            if(!map.containsKey(new_arr[i]))
-//                map.put(new_arr[i], index++);
-//        }
-//
-//        for(int i=0; i<N; i++){
-//            sb.append(map.get(arr[i])).append(" ");
-//        }
-//
-//        System.out.print(sb);
-
-
-//        for (String[] l :arr){
-//            System.out.println(l[0] + " "+ l[1]);
-//        }
-
-
-
-
-//        System.out.println(x_max-x_min+" "+y);
-
-
 //        Scanner sc = new Scanner(System.in);
-        solution(2,9);
-        solution(2,1);
-        solution(2,8);
+//        solution(2,9);
+//        solution(2,1);
+//        solution(2,8);
 
     }
     public static boolean isPrime(int num) {

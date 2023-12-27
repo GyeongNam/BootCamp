@@ -1,0 +1,24 @@
+{
+  "nation": "Korea",
+  "name" : "korea university",
+  "students": [
+    {
+      "id": 1,
+      "name": "student1",
+      "classNumber": "1",
+      "city": "seoul"
+    },
+    {
+      "id": 2,
+      "name": "student2",
+      "classNumber": "2",
+      "city": "pusan"
+    },
+    {
+      "id": 3,
+      "name": "student3",
+      "classNumber": "3",
+      "city": "pusan"
+    }
+  ]
+}
