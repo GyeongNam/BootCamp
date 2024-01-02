@@ -1,0 +1,70 @@
+<!--HTML 5임을 명시 : 생략 가능 -->
+<!DOCTYPE html>
+<html>
+<!-- html 문서의 정보성 메타데이터 정의 -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--  검색엔진, 북마크, 즐겨찾기는 title 를 기준으로 사용 -->
+    <title>나의 HTML 문서</title>
+    <style>
+        /* 내부 스타일링 */
+        body {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            line-height: 1.6; /* 각 줄 간격 설정 */
+            margin: 20px; /* 전체 페이지 여백 설정 */
+            padding: 0; /* 전체 페이지 padding 제거 */
+        }
+
+        h1 {
+            color: #333; /* 제목 색상 */
+        }
+
+        h2 {
+            color: #666; /* 부제목 색상 */
+        }
+
+        p {
+            color: #444; /* 본문 텍스트 색상 */
+        }
+
+        mark {
+            background-color: yellow; /* 하이라이트 텍스트 배경색 */
+        }
+
+        del {
+            text-decoration: line-through; /* 삭제된 텍스트에 가로줄 표시 */
+        }
+    </style>
+    <script></script>
+</head>
+
+<body>
+    <h1>HTML 학습하기</h1>
+    <h2>h태그는 제목을 의미하고 위 아래로 약간의 여백이 자동 삽입</h2>
+    <h3>검색엔진에서 h태그는 중요한 검색 키워드로 사용</h3>
+    <p>p태그는 단락(paragraph)의미하고, 태그의 위 아래로 여백이 삽입</p>
+    <p>html 태그 내에서는 엔터를 치더라도 줄바꿈이 되지 않고,
+        <br> br 태그를 써야한다.
+        도한 웹 브라우저에서는 여러번 띄어쓰기를 하더라도 한번만 띄어쓰기 됨에 유의
+    </p>
+
+    <h2>텍스트의 형식화</h2>
+    <p> 굵게는 <b>b 태그</b></p>
+    <p> 강조는 <strong>strong 태그</strong></p>
+    <p> 이텔릭체는 <i>i 태그</i></p>
+    <p> 강조된 이텔릭체는 <em>em 태그</em></p>
+    <p> 하이라이트 텍스트는
+        <mark> mark 태그</mark>
+    </p>
+    <p> 삭제된 텍스트는
+        <del> del 태그</del>
+    </p>
+
+    <h2>HTML에서 엔티티 사용</h2>
+    <p>여러개의 공백을 넣고 싶을때에는 &nbsp; &nbsp; &nbsp; nbsp를 사용한다. </p>
+    <p> 단락을 표시하는 태그는 &lt; &gt;  lt태그,gt태그입니다.</p>
+
+</body>
+
+</html>
