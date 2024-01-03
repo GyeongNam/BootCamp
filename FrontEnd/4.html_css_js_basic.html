@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>html, css, js 통합 기본</title>
+    <link rel="stylesheet" href="./css/my_style.css">
+    <style>
+        /* 태그 선택 */
+        /* p{
+            color : gray;
+            text-align: right;
+            text-decoration: overline;
+        } */
+        /* 클래스 선택 */
+        .paras{
+            color : blue;
+            text-align: left;
+            text-decoration: underline;
+        }
+        /* 아이디 선택 */
+        #paras{
+            color : aqua;
+            text-align: center;
+            text-decoration: underline;
+        }
+
+        /* 자손 선택자 */
+        div p {
+            color: blue;
+        }
+        
+        /* 자식 선택자 */
+        div > h5 {
+            color: green;
+        }
+    </style>
+    <script>
+        document.getElementById("load2").innerHTML = "change2";
+        function updateDemo1(){
+            document.getElementById("demo1").innerHTML = "번경된 p태그 내용";
+        }
+    </script>
+
+</head>
+<body>
+    <h2>html, css, js 통합 기본</h2>
+    <!-- 인라인 스타일 적용 -->
+    <p style="text-align: center; color: hsl(123, 84%, 44%); text-decoration: underline;">인라인스타일 적용</p>
+
+    <!-- 내부 스타일 적용 -->
+
+    <!-- 태그 선택자 -->
+    <p> 태그 선택자 적용</p>
+    <!-- 클래스 선택자 -->
+    <p class="paras"> 클래스 선택자 1</p>
+    <p class="paras"> 클래스 선택자 2</p>
+    <!-- 아이디 선택자 -->
+    <p id="paras"> 아이디 선택자</p>
+
+    <!-- 외부스타일 적용 -->
+    <p id="external">외부스타일 적용</p>
+
+    <!-- 자손 선택자 -->
+    <div>
+        <h2>자손선택자 예시</h2>
+        <p>첫번째 단락</p>
+        <p>두번째 단락</p>
+    </div>
+    <!-- 자식 선택자 -->
+    <div>
+        <h2>자손선택자 예시</h2>
+        <h5>첫번째 단락</h5>
+        <section>
+            <h5>두번째 단락</h5>
+        </section>
+    </div>
+
+    <h2>javascript 예시</h2>
+    <p id="load1">js 로드 순서 1</p>
+    <p id="load2">js 로드 순서 2</p>
+    <script>
+        document.getElementById("load1").innerHTML = "change1";
+    </script>
+
+    <p id="demo1">번경될 p태그 내용</p>
+    <button onclick="updateDemo1()">내용 변경</button>
+
+    
+    <p id="demo2">demo2 내용</p>
+    <button onclick="updateDemo2()">내용 변경</button>
+
+    <script src="./js/my_js.js"></script>
+
+</body>
+</html>

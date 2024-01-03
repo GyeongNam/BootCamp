@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS BASIC</title>
+    <style>
+        body{
+            background-color:blanchedalmond;
+        }
+        p {
+            background-color: yellowgreen;
+            /* text 디자인 */
+            letter-spacing: 2px;
+            word-spacing: 5px;
+        }
+        .italic{
+            font-style: italic;
+        }
+        .bigtext{
+            font-size: 24px;
+        }
+        .relativetext{
+            font-size: 10px;
+        }
+        .em_parent{
+            font-size: 20px;
+        }
+        .em_child{
+            font-size: 1.5em;
+        }
+        .percent_parent{
+            font-size: 20px;
+        }
+        .percent_child{
+            font-size: 150%;
+        }   
+
+
+    </style>
+
+
+</head>
+<body>
+    <h2>css 기본 문법</h2>
+
+    <p>우선 적용</p>
+
+    <p class="italic bigtext">font style과 font size 중첩 적용 1</p>
+    <p class="italic relativetext">font style과 font size 중첩 적용 2</p>
+    
+    <!-- em: 배수,  percent: 퍼센트 -->
+    <div class="em_parent">
+        <div class="em_child">
+            이 텍스트는 부모 글꼴의 1.5배 크기의 글꼴입니다.
+        </div>
+    </div>
+    <div class="percent_parent">
+        <div class="percent_child">
+            이 텍스트는 부모 글꼴의 150%배 크기의 글꼴입니다.
+        </div>
+    </div>
+
+    <div style="border: 3px solid black; padding: 15px; margin: 15px;">
+        margin, border, padding을 가진 요소
+    </div>
+    <div style="padding: 15px; margin: 15px;">
+        margin, border, padding을 가진 요소
+    </div>
+
+    <div style="padding-left: 20px;">
+        왼쪽 padding만을 가진 텍스트 요소
+    </div>
+
+    <div style="border: 3px solid; margin: 10px; text-align: center;">
+        hello world
+    </div>
+
+    <table border="1" style="border-collapse: collapse; text-align: center; margin: auto;" align="center">
+        <thead>
+            <tr>
+                <th>타이틀1</th>
+                <th>타이틀2</th>
+                <th>타이틀3</th>
+                <th>타이틀4</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>내용1</td>
+                <td>내용2</td>
+                <td>내용3</td>
+                <td>내용4</td>
+            </tr>
+            <tr>
+                <td>내용5</td>
+                <td>내용6</td>
+                <td>내용7</td>
+                <td>내용8</td>
+            </tr>
+            <tr>
+                <td>내용9</td>
+                <td>내용10</td>
+                <td>내용11</td>
+                <td>내용12</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
