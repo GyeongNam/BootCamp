@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Intro</title>
+</head>
+<body>
+    <h2>JavaScript 변수와 출력</h2>
+    <button type="button" onclick="varialbeConsole1()" >console에 변수1 출력하기</button>
+    <button type="button" onclick="varialbeConsole2()" >console에 변수2 출력하기</button>
+    <button type="button" onclick="varialbeConsole3()" >console에 변수3 출력하기</button>
+
+    <h2>JavaScript 변수 선언 키워드</h2>
+    <button type="button" onclick="varExample()" >console에 변수1 출력하기</button>
+    <button type="button" onclick="letExample()" >console에 변수2 출력하기</button>
+    <button type="button" onclick="constExample()" >console에 변수3 출력하기</button>
+
+    <h2> tag 선택, class 선택, id 선택 </h2>
+    <p id="changeid" class="changeclass"> 변경전 </p>
+    <p class="changeclass"> 변경전 </p>
+    <button type="button" onclick="changeTextById()" >id 선택 후 change</button>
+    <button type="button" onclick="changeTextByClass()" >class 선택 후 change</button>
+    <button type="button" onclick="changeTextByTag()" >tag 선택 후 change</button>
+    <script>
+        function varialbeConsole1(){
+            var x = 10;
+            var y = '10';
+            console.log(x+y);
+        }
+        function varialbeConsole2(){
+            var arr = [10,"10",20,"30"];
+            var total = 0;
+            var arr2 = [10,20,30,40];
+            arr2.push(50);
+            arr2.forEach((a)=>console.log(a));
+            for (i = 0; i < arr2.length; i++) {
+                total += arr2[i]
+            }
+            // 콘솔 출력
+            console.log(arr2);
+            console.log(total);
+            
+            // 팝업으로 출력 : 확인 누르기전까지 이후 코드 실행x 
+            alert("total : "+total);
+            document.write("total :" + total);
+        }
+        function varialbeConsole3(){
+            var arr =[ 10,20, ()=>{console.log("hello world"); return}];
+            console.log(arr[2]());
+        }
+        function varExample(){
+            // var는 같은 변수명에 재선언과 재할당 가능
+            var x = 10;
+            var x = 20;
+            console.log("varExample : " + x);
+            
+        }
+        function letExample(){
+            // let는 같은 변수명에 재할당만 가능
+            let x = 10;
+            x = 20;
+            console.log("letExample : " + x);
+        }
+        function constExample(){
+            // const는 변수명에 재선언과 재할당 불가능
+            const x = 10;
+            x = 20;
+            console.log("constExample : " + x);
+        }
+        function changeTextById(){
+            var changeid =  document.getElementById("changeid");
+            changeid.innerHTML = "changeid로 변경되었습니다."
+            changeid.style.fontSize = "30px";
+            
+        }
+        function changeTextByClass(){
+            var section1s = document.getElementsByClassName("changeclass");
+            for( var i = 0; i < section1s.length; i++ ){
+				var item = section1s.item(i);
+				item.innerHTML = "changeclass 변경"+i;
+                item.style.fontSize = i+1*25+"px";
+                item.style.color = "green";
+                item.style.backgroundColor = "yellow";
+                
+			}
+        }
+        function changeTextByTag(){
+            var section1s = document.getElementsByTagName("p");
+            for( var i = 0; i < section1s.length; i++ ){
+				var item = section1s.item(i);
+				item.innerHTML = "TagName 변경"+i;
+                item.style.fontSize = i+1*25+"px";
+                item.style.color = "yellow";
+                item.style.backgroundColor = "green";
+                
+			}
+        }
+    </script>
+</body>
+</html>

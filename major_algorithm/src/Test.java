@@ -3,68 +3,76 @@ import java.util.*;
 
 public class Test {
     public static void main(String[] args) throws IOException {
-//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-//        Stack<Integer> stack = new Stack<>();
-//        Queue<Integer> queue = new LinkedList<>();
-//        int size = Integer.parseInt(br.readLine());
-//        StringTokenizer st = new StringTokenizer(br.readLine());
-//        for (int i = 0; i < size ; i++) {
-//            queue.offer(Integer.parseInt(st.nextToken()));
-//        }
-//        int index = 1;
-//        while (!queue.isEmpty()){
-//            if(queue.peek() == index){
-//                queue.poll();
-//                index++;
-//            }else if (!stack.isEmpty() && stack.peek() == index){
-//                stack.pop();
-//                index++;
-//            }else{
-//                stack.push(queue.poll());
-//            }
-//        }
-//        while (!stack.isEmpty()){
-//            if(stack.peek() == index){
-//                stack.pop();
-//                index++;
-//            }else{
-//                System.out.println("Sad");
-//                return;
-//            }
-//        }
-//        System.out.println("Nice");
+        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+        int a = Integer.parseInt(br.readLine());
+        int i, j = 1;
+        for (i = 1; i < a; i++) {
+            if (a == 1) {
+                System.out.println(i);
+            }
+            a -= i;
+        }
+        if ((i % 2) == 0) {
+            a--;
+            while (a != 0) {
+                i--;
+                j++;
+                a--;
+            }
+            System.out.println(j+ "/" + i);
+        }
+        else {
+            a = i - a;
+            while (a != 0) {
+                i--;
+                j++;
+                a--;
+            }
+            System.out.println(j+ "/" + i);
+        }
 
-        solution(new int[][]{{0,3},{1,9},{2,6}});
+//        solution("hit","cog", new String[] {"hot", "dot", "dog", "lot", "log", "cog"});
+//        solution("hit","cog", new String[] {"hot", "dot", "dog", "lot", "log"});
 
     }
 
-    public static long solution(int[][] jobs) {
+    public static long solution(String begin, String target, String[] words) {
         int answer = 0;
-        int end = 0;
-        int jobsIdx = 0;
-        int count = 0;
-
-        Arrays.sort(jobs, (o1, o2) -> o1[0] - o2[0]);
-        PriorityQueue<int[]> pq = new PriorityQueue<>((o1, o2) -> o1[1] - o2[1]);
-
-        while (count < jobs.length) {
-            while (jobsIdx < jobs.length && jobs[jobsIdx][0] <= end) {
-                pq.add(jobs[jobsIdx++]);
+        boolean[] visited = new boolean[words.length];
+        Queue<String> q = new LinkedList<>(); // 변환 가능한 단어들을 저장할 queue
+        Set<String> set = new HashSet<>(Arrays.asList(words));
+        if(!set.contains(target)){
+            return 0;
+        }
+        q.offer(begin);
+        set.remove(begin);
+        while (!q.isEmpty()){
+            for (int i=0; i<q.size(); i++){
+                String temp = q.poll();
+                if (temp.equals(target)){
+                    return answer; // 타겟 단어에 도달
+                }
+                for (String word : set.toArray(new String[set.size()])){
+                    if(convert(temp,word)){
+                        q.offer(word);
+                        set.remove(word);
+                    }
+                }
             }
-
-            if (pq.isEmpty()) {
-                end = jobs[jobsIdx][0];
-            } else {
-                int[] temp = pq.poll();
-                answer += temp[1] + end - temp[0];
-                end += temp[1];
-                count++;
+            answer++;
+        }
+        return 0;
+    }
+    static private boolean convert(String word1, String word2){
+        int diffCnt = 0;
+        for (int i = 0; i<word1.length(); i++){
+            if (word1.charAt(i) != word2.charAt(i)){
+                diffCnt++;
             }
         }
-        answer = (int) Math.floor((double) answer / jobs.length);
-        System.out.println(answer);
-        return answer;
+        return diffCnt == 1;
     }
+
 
     static long gcd ( long a, long b){
         if (a < b) {
