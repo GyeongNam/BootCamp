@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        async function callbackImp(){
+            try{
+                const response1 = await $.ajax({
+                url: "https://jsonplaceholder.typicode.com/posts",
+                type: 'GET',
+                dataType: 'JSON' });
+                console.log('response1 : ');
+                console.log(response1);
+            }catch(e){
+                console.log(e);
+            }
+            // const response2 = await $.ajax({
+            //     url: "https://jsonplaceholder.typicode.com/posts",
+            //     type: 'GET',
+            //     dataType: 'JSON',
+            //     data : response1
+            // });
+            // console.log(response2);
+            // const response3 = await $.ajax({
+            //     url: "https://jsonplaceholder.typicode.com/posts",
+            //     type: 'GET',
+            //     dataType: 'JSON',
+            //     data : response2
+            // });
+            // console.log(response3);
+            try{
+                const axiosdata = await axios.get("https://jsonplaceholder.typicode.com/posts");
+                console.log('axiosdata : ');
+                console.log(axiosdata.data);
+            }catch(e){
+                console.log(e);
+            }
+        }
+        callbackImp();
+        console.log("----------------------------------");
+        a();
+        // a 함수
+        function a() {
+            $.ajax({
+                url: 'https://jsonplaceholder.typicode.com/posts',
+                type: 'GET',
+                success: function(data) {
+                    console.log('a');
+                    b(data);
+                },
+                error: function(xhr, status, error) {
+                }
+            });
+        }
+
+        // b 함수
+        function b(data) {
+            $.ajax({
+                url: 'https://jsonplaceholder.typicode.com/posts',
+                type: 'GET',
+                data : data,
+                success: function(response) {
+                    console.log('b');
+                    c(data);
+                    
+                },
+                error: function(xhr, status, error) {
+                
+                }
+            });
+        }
+
+        // c 함수
+        function c(data) {
+            $.ajax({
+                url: 'https://jsonplaceholder.typicode.com/posts',
+                type: 'GET',
+                data : data,
+                success: function(response) {
+                    console.log('c');
+                },
+                error: function(xhr, status, error) {
+                
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

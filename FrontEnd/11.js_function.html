@@ -5,13 +5,127 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>function</title>
     <script>
+        
         function basicFunction(){
             alert("함수 호출 완료")
+        }
+        function basicFunction2(){
+            alert(makeString3());
+        }
+        function basicFunction3(a,b = 'guest'){
+            alert(a + " " + b + 3);
+        }
+        function basicFunction4(a, b){
+            alert(a+b);
+        }
+        function basicFunction5(...numbers){
+            alert(numbers.reduce((a,b)=>a+b,0) );
+        }
+        function makeString(){
+            return "hello world"
+        }
+
+        const makeString2 = function(){return "hello world2";};
+        const makeString3 = ()=>{return "hello world3";};
+
+        var memory = 0;
+        var op;
+        
+        function plus(){
+            var getid = document.getElementById("result");
+            memory = getid.value;
+            op = '+';
+            getid.value = 0;
+
+        }
+        function minus(){
+            var getid = document.getElementById("result");
+            memory = getid.value;
+            op = '-';
+            getid.value = 0;
+        }
+        function multiply(){
+            var getid = document.getElementById("result");
+            memory = getid.value;
+            op = '*';
+            getid.value = 0;
+        }
+        function divide(){
+            var getid = document.getElementById("result");
+            memory = getid.value;
+            op = '/';
+            getid.value = 0;
+        }
+        function result(){
+            var getid = document.getElementById("result");
+            switch (op) {
+                case '+':
+                memory = parseInt(memory) + parseInt(getid.value) ;
+                break;
+                case '-':
+                memory = parseInt(memory) - parseInt(getid.value) ;
+                break;
+                case '*':
+                memory = parseInt(memory) * parseInt(getid.value) ;
+                break;
+                case '/':
+                memory = parseInt(memory) / parseInt(getid.value) ;
+                break;
+                default:
+                break;
+            }
+            console.log(memory)
+            getid.value = memory;
+        }
+        function clears(){
+            var getid = document.getElementById("result");
+            getid.value = 0;
+            memory = 0;
+        }
+
+    </script>
+    <script>
+        var index = 1;
+        function addform(){
+            const Element = document.getElementById('Element');
+            const newP = document.createElement('p');
+            const newInput = document.createElement('input');
+            newP.innerHTML = '항목'+index;
+            index++;
+            Element.appendChild(newP);
+            Element.appendChild(newInput);
+            /*
+            let myTargert = document.getElementById('Element');
+            myTargert.innerHTML += "<br> <label>'항목'+index</label> <input type='text'> <br>";
+            index++;
+            */ 
+
         }
     </script>
 </head>
 <body>
     <h2>js 기본 함수 호출</h2>
-    <button onclick="basicFunction()">함수 호출</button>
+    <button onclick="basicFunction()">함수 호출1</button>
+    <button onclick="basicFunction2()">함수 호출2</button>
+    <button onclick="basicFunction3('hello')">함수 호출3</button>
+    <button onclick="basicFunction4(10,20)">함수 호출4</button>
+    <button onclick="basicFunction5(10,20,30,40)">함수 호출5</button>
+
+    <h2>계산기 프로그램</h2>
+    <p id="story"></p>
+    <input id="result" type="text" placeholder="숫자를 입력하세요">
+    <button onclick="result()">=</button>
+    <br>
+    <button onclick="plus()">+</button>
+    <button onclick="minus()">-</button>
+    <button onclick="multiply()">X</button>
+    <button onclick="divide()">/</button>
+    <button onclick="clears()">C</button>
+
+    <h2>이력서 입력</h2>
+    <div id="Element">
+  
+    </div>
+    <button onclick="addform()">이력서 추가</button>
 </body>
 </html>
