@@ -14,24 +14,33 @@
             return td;
         }
         async function callbackImp(){
-            try{
-                const axiosdata = await axios.get("https://jsonplaceholder.typicode.com/posts");
-                const tbody = document.getElementById('tbody');
-                axiosdata.data.forEach( element => {
-                    const newtr = document.createElement('tr');
-                    newtr.appendChild(createTableCell(element.id));
-                    newtr.appendChild(createTableCell(element.title));
-                    newtr.appendChild(createTableCell(element.userId));
-                    tbody.appendChild(newtr);
-                });
-            }catch(e){
-                console.log(e);
-            }
+            // try{
+            //     const axiosdata = await axios.get("https://jsonplaceholder.typicode.com/posts");
+            //     const tbody = document.getElementById('tbody');
+            //     axiosdata.data.forEach( element => {
+            //         const newtr = document.createElement('tr');
+            //         newtr.appendChild(createTableCell(element.id));
+            //         newtr.appendChild(createTableCell(element.title));
+            //         newtr.appendChild(createTableCell(element.userId));
+            //         tbody.appendChild(newtr);
+            //     });
+            // }catch(e){
+            //     console.log(e);
+            // }
+            // try{
+            //     let myTarget = document.getElementsByClassName("table")[0];
+            //     const response1 = await axios.get('https://jsonplaceholder.typicode.com/posts');
+            //     response1.data.forEach(element => {
+            //         myTarget.innerHTML += `<tr><td>${element.id}</td><td>${element.title}</td><td>${element.userId}</td></tr>`
+            //     });
+            // }catch(e){
+            //     console.log(e);
+            // }
             try{
                 let myTarget = document.getElementsByClassName("table")[0];
-                const response1 = await axios.get('https://jsonplaceholder.typicode.com/posts');
+                const response1 = await axios.get('http://localhost:8080/csr/json');
                 response1.data.forEach(element => {
-                    myTarget.innerHTML += `<tr><td>${element.id}</td><td>${element.title}</td><td>${element.userId}</td></tr>`
+                    myTarget.innerHTML += `<tr><td>${element.id}</td><td>${element.title}</td><td>${element.body}</td><td>${element.authorName}</td></tr>`
                 });
             }catch(e){
                 console.log(e);
@@ -40,18 +49,7 @@
     </script>
 </head>
 <body>
-    <div class="navbar navbar-expand-lg bg-dark">
-        <a class="navbar-brand" href="./home.html" style="color: aliceblue;">게시판 서비스</a>
-        <ul class="navbar-nav">
-            <li class="navbar-item">
-                <a class="nav-link" href="./register.html" style="color: aliceblue;">회원가입</a>
-            </li>
-            <li class="navbar-item">
-                <a class="nav-link" href="./post-list.html" style="color: aliceblue;">글목록</a>
-            </li>
-        </ul>
-
-    </div>
+    <div id="header"></div>
 
     <div class="container">
         <div class="page-header"><h1>게시글 목록</h1></div>
@@ -64,7 +62,8 @@
                 <tr>
                     <th>id</th>
                     <th>title</th>
-                    <th>userID</th>
+                    <th>body</th>
+                    <th>authorName</th>
                 </tr>
             </thead>
             <tbody id="tbody" class="table">
@@ -73,6 +72,7 @@
     </div>
     <script>
         callbackImp();
+        document.getElementById('header').innerHTML = '<object data="header.html" type="text/html" style="width: 100%;" ></object>'
     </script>
 </body>
 </html>
