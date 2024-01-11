@@ -3,36 +3,19 @@ import java.util.*;
 
 public class Test {
     public static void main(String[] args) throws IOException {
-//        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
-//        int a = Integer.parseInt(br.readLine());
-//        int i, j = 1;
-//        for (i = 1; i < a; i++) {
-//            if (a == 1) {
-//                System.out.println(i);
-//            }
-//            a -= i;
-//        }
-//        if ((i % 2) == 0) {
-//            a--;
-//            while (a != 0) {
-//                i--;
-//                j++;
-//                a--;
-//            }
-//            System.out.println(j+ "/" + i);
-//        }
-//        else {
-//            a = i - a;
-//            while (a != 0) {
-//                i--;
-//                j++;
-//                a--;
-//            }
-//            System.out.println(j+ "/" + i);
-//        }
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
+        int size = Integer.parseInt(br.readLine());
+        for (int i = 0; i < size ; i++) {
 
-        solution(new int[] {2, 3, 3, 5});
-        solution(new int[] {9, 1, 5, 3, 6, 2});
+        }
+
+
+
+//        solution(new int[] {2, 3, 3, 5});
+//        solution(new int[] {9, 1, 5, 3, 6, 2});
+
+
 
     }
 
