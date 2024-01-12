@@ -16,12 +16,15 @@ repositories {
 	mavenCentral()
 }
 
+
 // starter 종속성은 별도의 버전관리 필요없음.
 dependencies {
 	// 의존성
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
 }
 
 tasks.named('test') {

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>Title</title>
+</head>
+<body>
+    <h2>json test</h2>
+    <input type="text" id="name">
+    <input type="text" id="email">
+    <input type="text" id="password">
+    <br>
+    <button type="button" onclick="sendData1()"> 데이터 보내기1 </button>
+    <br>
+    <button type="button" onclick="sendData2()"> 데이터 보내기2 </button>
+    <br>
+    <button type="button" onclick="sendData3()"> 데이터 보내기3 </button>
+    <h2>서버 갔다가돌아온 값</h2>
+    <p id="reName"></p>
+    <p id="reEmail"></p>
+    <p id="rePassword"></p>
+</body>
+
+<script>
+    async function sendData1() {
+        const jsonData =    {
+            name:document.getElementById("name").value,
+            email:document.getElementById("email").value,
+            password:document.getElementById("password").value
+        }
+        try{
+            const axiosdata1 = await axios({
+                method : "post",
+                url : "http://localhost:8080/hello/json-screen-handle1",
+                data : JSON.stringify(jsonData),
+                headers: {"Content-Type":"application/json"}
+            });
+            console.log('axiosdata1 : ');
+            let data = axiosdata1.data;
+            document.getElementById("reName").innerText = data.req_name;
+            document.getElementById("reEmail").innerText = data.req_email;
+            document.getElementById("rePassword").innerText = data.req_password;
+            location.href = data.url;
+        }catch (e) {
+            console.log(e);
+        }
+    }
+
+    async function sendData2() {
+        const jsonData = {
+            name: document.getElementById("name").value,
+            email: document.getElementById("email").value,
+            password: document.getElementById("password").value
+        }
+        try {
+            const axiosdata2 = await axios({
+                method: "post",
+                url: "http://localhost:8080/hello/json-screen-handle2",
+                data: JSON.stringify(jsonData),
+                headers: {"Content-Type": "application/json"}
+            });
+            location.href = "/hello/json-screen";
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    async function sendData3() {
+        const jsonData = {
+            name: document.getElementById("name").value,
+            email: document.getElementById("email").value,
+            password: document.getElementById("password").value
+        }
+        try {
+            const axiosdata3 = await axios({
+                method: "post",
+                url: "http://localhost:8080/hello/json-screen-handle3",
+                data: JSON.stringify(jsonData),
+                headers: {"Content-Type": "application/json"}
+            });
+            location.href = "/hello/json-screen";
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+
+</script>
+</html>
