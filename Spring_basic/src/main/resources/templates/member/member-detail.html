@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>MemberList</title>
+</head>
+<body>
+    <div th:replace="member/header :: headerFragment"></div>
+    <table>
+        <thead>
+            <tr>
+                <th>이름</th>
+                <th>이메일</th>
+                <th>비밀번호</th>
+                <th>가입 시간시간</th>
+            </tr>
+        </thead>
+        <tbody id="tbody">
+            <tr>
+                <td th:text="${member.name}"></td>
+                <td th:text="${member.email}"></td>
+                <td th:text="${member.password}"></td>
+                <td th:text="${member.create_at}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

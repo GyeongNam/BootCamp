@@ -1,0 +1,27 @@
+# application.properties ? ??
+#server.port=8081
+#spring.datasource.url=jdbc:mariadb//localhost:3306/member
+#spring.datasource.name=root
+#spring.datasource.password=1234
+
+server:
+  port: 8080
+spring:
+  profiles:
+    active: dev
+  datasource:
+    url: jdbc:mariadb//localhost:3306/member
+    username: root
+    password: 1234
+
+---
+
+server:
+  port: 8080
+spring:
+  profiles:
+    active: prod
+  datasource:
+    url: jdbc:mariadb//localhost:3306/member
+    username: root
+    password: 1234
