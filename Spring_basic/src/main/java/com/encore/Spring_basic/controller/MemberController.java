@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.NoSuchElementException;
+
 /*
 서비스 어노테이션을 통해 싱글톤 컴포넌트로 생성
 -> 스프링 빈으로 등록
@@ -53,7 +55,7 @@ public class MemberController {
 
     @GetMapping("/members")
     public String getMembers(Model model) {
-        model.addAttribute( "memberList", memberService.members());
+        model.addAttribute( "memberList", memberService.findAll());
         return "member/member-list";
     }
 
@@ -64,14 +66,19 @@ public class MemberController {
 
     @PostMapping("/member/create")
     public String MemberAdd(MemberRequestDTO memberRequestDTO, Model model){
-        memberService.memberCreate(memberRequestDTO);
-        model.addAttribute( "memberList", memberService.members());
+        memberService.save(memberRequestDTO);
+        model.addAttribute( "memberList", memberService.findAll());
         return "redirect:/members";
     }
 
     @GetMapping("/member/find")
     public String getMemberDetail(@RequestParam long id, Model model){
-        model.addAttribute( "member", memberService.memberFindById(id));
-        return "member/member-detail";
+        try{
+            model.addAttribute( "member", memberService.findById(id));
+            return "member/member-detail";
+        }catch (NoSuchElementException e){
+            return "404-error-page";
+        }
+
     }
 }

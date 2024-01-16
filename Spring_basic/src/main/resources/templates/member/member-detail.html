@@ -7,22 +7,22 @@
 <body>
     <div th:replace="member/header :: headerFragment"></div>
     <table>
-        <thead>
-            <tr>
-                <th>이름</th>
-                <th>이메일</th>
-                <th>비밀번호</th>
-                <th>가입 시간시간</th>
-            </tr>
-        </thead>
-        <tbody id="tbody">
-            <tr>
-                <td th:text="${member.name}"></td>
-                <td th:text="${member.email}"></td>
-                <td th:text="${member.password}"></td>
-                <td th:text="${member.create_at}"></td>
-            </tr>
-        </tbody>
+        <tr>
+            <td>이름</td>
+            <td th:text="${member.name}"></td>
+        </tr>
+        <tr>
+            <td>이메일</td>
+            <td th:text="${member.email}"></td>
+        </tr>
+        <tr>
+            <td>비밀번호</td>
+            <td th:text="${member.password}"></td>
+        </tr>
+        <tr>
+            <td>가입 시간시간</td>
+            <td th:text="${member.create_at}"></td>
+        </tr>
     </table>
 </body>
 </html>

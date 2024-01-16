@@ -3,8 +3,7 @@ package com.encore.Spring_basic.service;
 import com.encore.Spring_basic.domain.Member;
 import com.encore.Spring_basic.domain.MemberRequestDTO;
 import com.encore.Spring_basic.domain.MemberResponseDTO;
-import com.encore.Spring_basic.repository.MemberRepository;
-import com.encore.Spring_basic.repository.MemoryMemberRepository;
+import com.encore.Spring_basic.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,17 +13,16 @@ import java.util.*;
 
 @Service
 public class MemberService {
-    private long total_id = 0;
 
     private final MemberRepository memberRepository;
 
     @Autowired
-    public  MemberService(MemoryMemberRepository memoryMemberRepository){
-        this.memberRepository = memoryMemberRepository;
+    public  MemberService(MemberMyBatisRepository memberMyBatisRepository){
+        this.memberRepository = memberMyBatisRepository;
     }
 
-    public List<MemberResponseDTO> members (){
-        List<Member> memberList = memberRepository.members();
+    public List<MemberResponseDTO> findAll (){
+        List<Member> memberList = memberRepository.findAll();
         List<MemberResponseDTO> dtolist = new ArrayList<>();
         MemberResponseDTO dto;
         for(Member m :memberList){
@@ -38,19 +36,17 @@ public class MemberService {
         return dtolist;
     }
 
-    public void memberCreate(MemberRequestDTO memberRequestDTO){
+    public void save(MemberRequestDTO memberRequestDTO){
         Member member = new Member(
-                total_id++,
                 memberRequestDTO.getName(),
                 memberRequestDTO.getEmail(),
-                memberRequestDTO.getPassword(),
-                LocalDateTime.now()
+                memberRequestDTO.getPassword()
         );
-        memberRepository.memberCreate(member);
+        memberRepository.save(member);
     }
 
-    public MemberResponseDTO memberFindById(long id) {
-        Member m = memberRepository.memberFindById(id);
+    public MemberResponseDTO findById(long id) throws NoSuchElementException {
+        Member m = memberRepository.findById(id).orElseThrow(NoSuchElementException::new);
         MemberResponseDTO dto =  new MemberResponseDTO();
         dto.setId(m.getId());
         dto.setName(m.getName());

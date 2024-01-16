@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- mapper DTD 선언 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.encore.Spring_basic.repository.MemberMyBatisRepository">
+    <!-- 저장 (Save) -->
+    <insert id="save" parameterType="com.encore.Spring_basic.domain.Member">
+        INSERT INTO member(name, email, password ) VALUES
+            (#{name}, #{email}, #{password})
+    </insert>
+
+    <!-- ID로 조회 (FindById) -->
+    <select id="findById" resultType="com.encore.Spring_basic.domain.Member" parameterType="java.lang.Long">
+        SELECT * FROM member WHERE id = #{id}
+    </select>
+
+    <!-- 전체 조회 (FindAll) -->
+    <select id="findAll" resultType="com.encore.Spring_basic.domain.Member">
+        SELECT * FROM member
+    </select>
+</mapper>
