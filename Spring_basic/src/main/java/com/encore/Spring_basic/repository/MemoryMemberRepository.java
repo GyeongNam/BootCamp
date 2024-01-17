@@ -1,7 +1,6 @@
 package com.encore.Spring_basic.repository;
 
 import com.encore.Spring_basic.domain.Member;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -32,6 +31,19 @@ public class MemoryMemberRepository implements MemberRepository{
             }
         }
         return Optional.empty();
+    }
+
+    @Override
+    public void delete(Member member) {
+
+    }
+
+    @Override
+    public void deleteById(long id) {
+
+    }
+    public void delete(long id) {
+
     }
 
 }

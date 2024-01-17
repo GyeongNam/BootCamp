@@ -4,13 +4,17 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.encore.Spring_basic.repository.MemberMyBatisRepository">
     <!-- 저장 (Save) -->
-    <insert id="save" parameterType="com.encore.Spring_basic.domain.Member">
-        INSERT INTO member(name, email, password ) VALUES
-            (#{name}, #{email}, #{password})
-    </insert>
+<!--    <insert id="save">-->
+<!--        INSERT INTO member(name, email, password, created_at) VALUES-->
+<!--            (#{name}, #{email}, #{password}, #{create_at})-->
+<!--    </insert>-->
+    <select id="save" resultType="com.encore.Spring_basic.domain.Member">
+        INSERT INTO member(name, email, password, created_at) VALUES
+            (#{name}, #{email}, #{password}, #{create_at})
+    </select>
 
     <!-- ID로 조회 (FindById) -->
-    <select id="findById" resultType="com.encore.Spring_basic.domain.Member" parameterType="java.lang.Long">
+    <select id="findById" resultType="com.encore.Spring_basic.domain.Member" parameterType="Long">
         SELECT * FROM member WHERE id = #{id}
     </select>
 

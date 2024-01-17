@@ -33,7 +33,7 @@ public class MemberJdbcRepository implements MemberRepository {
                 LocalDateTime creat_at = resultSet.getTimestamp("create_at").toLocalDateTime();
                 Member member = new Member(name, emil, password);
                 member.setId(id);
-                member.setCreate_at(creat_at);
+//                member.setCreate_at(creat_at);
                 members.add(member);
             }
             return members;
@@ -76,11 +76,26 @@ public class MemberJdbcRepository implements MemberRepository {
                 LocalDateTime creat_at = resultSet.getTimestamp("create_at").toLocalDateTime();
                 member = new Member(name, emil, password);
                 member.setId(idx);
-                member.setCreate_at(creat_at);
+//                member.setCreate_at(creat_at);
             }
         }catch (SQLException e){
             e.printStackTrace();
         }
         return  Optional.ofNullable(member);
     }
+
+    @Override
+    public void delete(Member member) {
+
+    }
+
+    @Override
+    public void deleteById(long id) {
+
+    }
+
+//    @Override
+//    public Optional<Member> delete(long id) {
+//        return Optional.empty();
+//    }
 }

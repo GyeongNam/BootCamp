@@ -20,5 +20,4 @@ JdbcRepository: JDB C를 직접 사용하는 구현체로, JPA 를 사용하지 
  */
 public interface MemberSpringDataJpaRepository extends MemberRepository, JpaRepository<Member, Long> {
 
-
 }

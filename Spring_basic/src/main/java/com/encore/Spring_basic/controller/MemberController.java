@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.NoSuchElementException;
 
 /*
@@ -20,7 +21,6 @@ import java.util.NoSuchElementException;
  */
 @Controller
 public class MemberController {
-
     /*
     // 의존성 주임(DI) 방법 1 : 필드 주입방식
     @Autowired
@@ -66,9 +66,20 @@ public class MemberController {
 
     @PostMapping("/member/create")
     public String MemberAdd(MemberRequestDTO memberRequestDTO, Model model){
+//        try {
+//            memberService.save(memberRequestDTO);
+//        }catch (IllegalArgumentException e){
+//            return "404-error-page";
+//        }
         memberService.save(memberRequestDTO);
-        model.addAttribute( "memberList", memberService.findAll());
+
         return "redirect:/members";
+    }
+
+    @PostMapping("/member/update")
+    public String MemberUpdate(MemberRequestDTO memberRequestDTO){
+        memberService.update(memberRequestDTO);
+        return "redirect:/member/find?id="+memberRequestDTO.getId();
     }
 
     @GetMapping("/member/find")
@@ -76,9 +87,15 @@ public class MemberController {
         try{
             model.addAttribute( "member", memberService.findById(id));
             return "member/member-detail";
-        }catch (NoSuchElementException e){
+        }catch (EntityNotFoundException e){
             return "404-error-page";
         }
 
+    }
+
+    @GetMapping("/member/delete")
+    public String getMemberDelete(@RequestParam long id, Model model){
+        memberService.delete(id);
+        return "redirect:/members";
     }
 }

@@ -1,5 +1,6 @@
 package com.encore.Spring_basic.repository;
 
+import com.encore.Spring_basic.domain.Member;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 

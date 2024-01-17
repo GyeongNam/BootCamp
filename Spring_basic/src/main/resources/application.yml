@@ -42,7 +42,9 @@ spring:
       # update = 변경사항만 수정해 적용
       # validate = 실제 DB 와의 차이만을 확인
       # 실무에선 update 또는 validate
-      ddl-auto: create
-    # jap 가 자동으로 쿼리를 실행할때, 쿼리가 콘솔창에 보여지도록 설정
+      ddl-auto: update
     # jap 가 자동으로 쿼리를 실행할때, 쿼리가 콘솔창에 보여지도록 설정
     show-sql: true
+
+mybatis:
+  mapper-locations: classpath:/mapper/**/*.xml

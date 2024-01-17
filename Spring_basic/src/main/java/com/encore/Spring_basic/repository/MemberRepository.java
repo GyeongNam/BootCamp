@@ -10,4 +10,7 @@ public interface MemberRepository {
     public Member save(Member member);
 
     public Optional<Member> findById(long id);
+
+    public void delete(Member member);
+    public void deleteById(long id);
 }
