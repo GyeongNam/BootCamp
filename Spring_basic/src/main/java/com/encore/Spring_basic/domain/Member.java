@@ -27,6 +27,7 @@ public class Member {
     @Setter
     private String name;
     @Column(nullable = false, length = 50)
+    @Setter
     private String email;
     @Setter
     private String password;

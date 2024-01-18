@@ -16,7 +16,6 @@ import java.util.*;
 
 
 @Service
-
 public class MemberService {
 
     private final MemberRepository memberRepository;
@@ -36,6 +35,7 @@ public class MemberService {
             dto.setName(m.getName());
             dto.setEmail(m.getEmail());
             dto.setPassword(m.getPassword());
+            dto.setCreate_at(m.getCreate_at());
             dtolist.add(dto);
         }
         return dtolist;
@@ -72,7 +72,7 @@ public class MemberService {
         memberRepository.save(m);
     }
     public MemberResponseDTO findById(long id) throws EntityNotFoundException {
-        Member m = memberRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        Member m = memberRepository.findById(id).orElseThrow(()->new EntityNotFoundException("검색하신 아이디 맴버가 없습니다."));
         MemberResponseDTO dto =  new MemberResponseDTO();
         dto.setId(m.getId());
         dto.setName(m.getName());

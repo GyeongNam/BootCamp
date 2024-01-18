@@ -6,15 +6,36 @@ import java.util.*;
 public class Test {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb; // = new StringBuilder();
-        StringTokenizer st = new StringTokenizer(br.readLine());
-
-
+        StringBuilder sb = new StringBuilder();
+        StringTokenizer st; // = new StringTokenizer(br.readLine());
+        HashSet<Integer> list = new HashSet<>();
+        int N = Integer.parseInt(br.readLine());
+        st = new StringTokenizer(br.readLine());
+        for(int i = 0; i<N; i++){
+            list.add(Integer.parseInt(st.nextToken()));
+        }
+        int M = Integer.parseInt(br.readLine());
+        st = new StringTokenizer(br.readLine());
+        for(int i = 0; i<M; i++){
+            if(list.contains(Integer.parseInt(st.nextToken()))){
+                sb.append(1).append("\n");
+            }else{
+                sb.append(0).append("\n");
+            }
+        }
+        System.out.println(sb);
 
 //        solution(new int[] {180, 5000, 10, 600}, new String[] {"05:34 5961 IN", "06:00 0000 IN", "06:34 0000 OUT", "07:59 5961 OUT", "07:59 0148 IN", "18:59 0000 IN", "19:09 0148 OUT", "22:59 5961 IN", "23:00 5961 OUT"});
 //        solution(new int[] {120, 0, 60, 591}, new String[] {"16:00 3961 IN","16:00 0202 IN","18:00 3961 OUT","18:00 0202 OUT","23:58 3961 IN"});
 //        solution(new int[] {1, 461, 1, 10}, new String[] {"00:00 1234 IN"});
 
+    }
+    static int factorial(int N) {
+        // factorial(0) == 1 이다.
+        if (N <= 1)	{
+            return 1;
+        }
+        return N * factorial(N - 1);
     }
 
     public static long[] solution(int[] fees, String[] records) {
