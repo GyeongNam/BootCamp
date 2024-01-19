@@ -28,6 +28,12 @@
 
 # 스키마(데이터베이스) 사전 생성 필요
 spring:
+  # Controller 의 jsp 사용시에 경로 의 확장자 설정
+  # 기본 설정이 타임리프이므로, 타임리프 의존성을 제거해야 jsp 사용가능
+#  mvc:
+#    view:
+#      prefix: /WEB-INF/views/
+#      suffix: .jsp
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://localhost:3306/basic
@@ -45,6 +51,10 @@ spring:
       ddl-auto: update
     # jap 가 자동으로 쿼리를 실행할때, 쿼리가 콘솔창에 보여지도록 설정
     show-sql: true
-
+    # spring boot 2.4 이상에서는 기본적으로 pathPatternParser 를 사용하고 있는데,
+    # 이는 이전버전과 다른 경로매칭규칙을 가지고 있어, springfox와 같은 일부라이브러리에서는 문제 발생
+  mvc:
+    path match:
+      matching-strategy: ant_path_matcher
 mybatis:
   mapper-locations: classpath:/mapper/**/*.xml

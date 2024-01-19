@@ -36,6 +36,15 @@ dependencies {
 	// MyBatis
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0'
 
+	// jsp
+	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+	//	생략 가능 jstl 문법 사용 가능시 의존성 추가
+	implementation 'javax.servlet:jstl'
+
+	// Swagger 사용을 위한 의존성 추가
+	implementation 'io.springfox:springfox-boot-starter:3.0.0'
+
+
 
 }
 

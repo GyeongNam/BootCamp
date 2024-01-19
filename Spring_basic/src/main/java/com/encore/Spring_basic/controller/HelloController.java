@@ -6,6 +6,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -153,4 +159,32 @@ public class HelloController {
         System.out.println();
         return  "ok";
     }
+
+    @PostMapping("/httpServlet")
+    @ResponseBody
+    public String httpServlet(HttpServletRequest request){
+        // 헤더 정보 추출
+        System.out.println("getContentType : "+request.getContentType());
+        System.out.println("getMethod : "+request.getMethod());
+
+        // 로그인(auth) 정보에서 필요한 정보값을 추출할 때 많이 사용
+        System.out.println("getSession : "+request.getSession());
+        System.out.println("getHeader : "+request.getHeader("Accept"));
+
+        /*
+        바디 정보를 추출
+        request.getReader() 를 통해 BufferedReader로 받아 직접 파싱
+         */
+        System.out.println("getParameter : "+request.getParameter("test1"));
+        System.out.println("getParameter : "+request.getParameter("test2"));
+
+        return "ok";
+    }
+
+//    @GetMapping("/hello-servlet-jsp-get")
+//    protected String hello_servlet_get(Model model) {
+//        model.addAttribute("myData", "jsp test data");
+//        return "/webapp/WEB-INF/views/hello-jsp.jsp";
+//    }
+
 }

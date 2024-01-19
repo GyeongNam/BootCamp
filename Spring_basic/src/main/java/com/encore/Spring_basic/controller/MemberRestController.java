@@ -3,6 +3,7 @@ package com.encore.Spring_basic.controller;
 import com.encore.Spring_basic.domain.MemberRequestDTO;
 import com.encore.Spring_basic.domain.MemberResponseDTO;
 import com.encore.Spring_basic.service.MemberService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import java.util.Map;
 
 @Controller
 @RestController
+@Api(tags = "회원 관리 서비스")
 @RequestMapping("/rest")
 public class MemberRestController {
     private final MemberService memberService;
