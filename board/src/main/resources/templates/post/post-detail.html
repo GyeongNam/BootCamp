@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Title</title>
+    <style>
+        .pull-right{
+            float: left;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="header :: headerFragment" ></div>
+<div class="container">
+<div class="page-header">
+    <h1> 회원 상세 보기</h1>
+</div>
+<table class="table">
+    <tr>
+        <td>번호 </td>
+        <td th:text="${post.id}"></td>
+    </tr>
+    <tr>
+        <td>제목 </td>
+        <td th:text="${post.title}"></td>
+    </tr>
+    <tr>
+        <td>등록 시간 </td>
+        <td th:text="${post.createdTime}"></td>
+    </tr>
+    <tr>
+        <td>contents </td>
+        <td style="white-space: pre-wrap" th:text="${post.contents}"></td>
+    </tr>
+
+</table>
+    <div class="pull-right">
+        <button type="button" class="btn btn-primary" onclick="doDisplay()">수정</button>
+    </div>
+    <div class="pull-right">
+         <a class="btn btn-primary" th:href="@{/post/delete/{id}(id=${post.id})}">삭제</a>
+    </div>
+    <div id="updateForm" style="display:none;" class="mt-4">
+        <form th:action="@{/post/update/{id}(id=${post.id})}" method="post" >
+            <table class="table">
+                <tr class="form-group">
+                    <td><label for="title">제목 </label></td>
+                    <td><input type="text" id="title" name="title" class="form-control" th:value="${post.title}"></td>
+                </tr>
+                <tr class="form-group">
+                    <td> <label for="contents">contents</label></td>
+                    <td><textarea id="contents" name="contents" class="form-control" style="width: 1100px; height: 300px"  th:text="${post.contents}"></textarea></td>
+                </tr>
+            </table>
+            <button type="submit"  class="btn btn-primary"> 수정완료 </button>
+        </form>
+    </div>
+</div>
+<script>
+    function doDisplay(){
+        var con = document.getElementById("updateForm");
+        if(con.style.display=='none'){
+            con.style.display = 'block';
+        }else{
+            con.style.display = 'none';
+        }
+    }
+</script>
+</body>
+</html>

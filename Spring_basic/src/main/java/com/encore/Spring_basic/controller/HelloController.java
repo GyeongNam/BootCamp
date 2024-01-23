@@ -6,12 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -187,4 +182,11 @@ public class HelloController {
 //        return "/webapp/WEB-INF/views/hello-jsp.jsp";
 //    }
 
+    public void helloBuilderTest(){
+        Hello hello = Hello.builder()
+                .name("신재석")
+                .email("신")
+                .password("123")
+                .build();
+    }
 }

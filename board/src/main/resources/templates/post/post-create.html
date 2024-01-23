@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:replace="header :: headerFragment" ></div>
+<div class="container">
+    <div class="page-header">
+        <h1>게시글 가입</h1>
+    </div>
+    <form action="/post/create" method="post" >
+        <table class="table">
+            <tr class="form-group">
+                <td><label for="title">제목  </label></td>
+                <td><input type="text" id="title" name="title" class="form-control"></td>
+            </tr>
+            <tr class="form-group">
+                <td> <label for="contents">contents</label></td>
+                <td><textarea id="contents" name="contents" class="form-control" style="width: 1100px; height: 300px;"></textarea></td>
+            </tr>
+        </table>
+        <button type="submit"  class="btn btn-primary"> 등록하기 </button>
+    </form>
+</div>
+</body>
+</html>

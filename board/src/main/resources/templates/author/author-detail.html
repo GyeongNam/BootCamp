@@ -2,6 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Title</title>
+    <style>
+        .pull-right{
+            float: left;
+            margin-right: 10px;
+        }
+    </style>
 </head>
 <body>
 <div th:replace="header :: headerFragment" ></div>
@@ -27,6 +33,10 @@
         <td th:text="${author.password}"></td>
     </tr>
     <tr>
+        <td>사용자 권한 : </td>
+        <td th:text="${author.role}"></td>
+    </tr>
+    <tr>
         <td>가입 시간 : </td>
         <td th:text="${author.createdTime}"></td>
     </tr>
@@ -37,28 +47,23 @@
     <div class="pull-right">
          <a class="btn btn-primary" th:href="@{/author/delete/{id}(id=${author.id})}">삭제</a>
     </div>
-    <div id="updateForm" style="display:none;">
-        <form action="/member/update" method="post" >
+    <div id="updateForm" style="display:none;" class="mt-4">
+        <form th:action="@{/author/update/{id}(id=${author.id})}" method="post" >
             <table class="table">
-                <tr>
-                    <td><label>아이디</label></td>
-                    <td><input type="text" name="id" th:value="${author.id}" readonly></td>
+                <tr class="form-group">
+                    <td><label for="name">이름 : </label></td>
+                    <td><input type="text" id="name" name="name" class="form-control" th:value="${author.name}"></td>
                 </tr>
-                <tr>
-                    <td><label>이름</label></td>
-                    <td><input type="text" name="name" th:value="${author.name}"></td>
+                <tr class="form-group">
+                    <td> <label for="email">이메일 : </label></td>
+                    <td><input type="text" id="email" name="email" class="form-control" th:value="${author.email}" readonly></td>
                 </tr>
-                <tr>
-                    <td> <label>이메일</label></td>
-                    <td><input type="text" name="email" th:value="${author.email}" readonly></td>
-                </tr>
-                <tr>
-                    <td><label>비밀번호</label></td>
-                    <td><input type="text" name="password" th:value="${author.password}"></td>
+                <tr class="form-group">
+                    <td><label for="password">비밀번호 : </label></td>
+                    <td><input type="text" id="password" name="password" class="form-control" th:value="${author.password}"></td>
                 </tr>
             </table>
-            <br>
-            <button type="submit"> 수정완료 </button>
+            <button type="submit"  class="btn btn-primary"> 수정완료 </button>
         </form>
     </div>
 </div>

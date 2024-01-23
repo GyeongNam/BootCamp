@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:replace="header :: headerFragment" ></div>
+<div class="container">
+    <div class="page-header">
+        <h1>회원 가입</h1>
+    </div>
+    <form action="/author/save" method="post" >
+        <table class="table">
+            <tr class="form-group">
+                <td><label for="name">이름 : </label></td>
+                <td><input type="text" id="name" name="name" class="form-control"></td>
+            </tr>
+            <tr class="form-group">
+                <td> <label for="email">이메일 : </label></td>
+                <td><input type="text" id="email" name="email" class="form-control"></td>
+            </tr>
+            <tr class="form-group">
+                <td><label for="password">비밀번호 : </label></td>
+                <td><input type="text" id="password" name="password" class="form-control"></td>
+            </tr>
+            <tr class="form-group">
+                <td><label>사용자 : </label></td>
+                <td>
+                    <select name="role" class="form-control">
+                        <option>==선택==</option>
+                        <option value="admin" >관리자</option>
+                        <option value="user" >일반사용자</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <button type="submit"  class="btn btn-primary"> 가입 </button>
+    </form>
+</div>
+</body>
+</html>
