@@ -6,4 +6,5 @@ import lombok.Data;
 public class PostListDto {
     private Long id;
     private String title;
+    private String author_email;
 }

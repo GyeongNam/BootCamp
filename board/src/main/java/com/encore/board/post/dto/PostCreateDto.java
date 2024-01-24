@@ -6,4 +6,5 @@ import lombok.Data;
 public class PostCreateDto {
     private String title;
     private String contents;
+    private String email;
 }
