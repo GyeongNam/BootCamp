@@ -1,5 +1,6 @@
 package com.encore.board.post.service;
 
+import com.encore.board.author.domain.Author;
 import com.encore.board.author.repository.AuthorRepository;
 import com.encore.board.post.domain.Post;
 import com.encore.board.post.dto.PostCreateDto;
@@ -10,9 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+@Transactional
 @Service
 public class PostService {
     private final PostRepository postRepository;
@@ -27,16 +30,21 @@ public class PostService {
     }
 
     public void save(PostCreateDto postCreateDto){
+        Author author = authorRepository.findByEmail(postCreateDto.getEmail()).orElse(null);
         Post post = Post.builder()
                 .title(postCreateDto.getTitle())
                 .contents(postCreateDto.getContents())
                 .author(authorRepository.findByEmail(postCreateDto.getEmail()).orElse(null))
                 .build();
+
+        // 더티 채킹 테스트
+        author.AuthorUpdate("터티 채킹 테스트", "1234");
+
         postRepository.save(post);
     }
 
     public List<PostListDto> findAll(){
-        List<Post> PostList = postRepository.findAllByOrderByCreatedTimeDesc();
+        List<Post> PostList = postRepository.findAllFetchJoin();
         List<PostListDto> listDto = new ArrayList<>();
         for(Post post : PostList){
             PostListDto postListDto = new PostListDto();

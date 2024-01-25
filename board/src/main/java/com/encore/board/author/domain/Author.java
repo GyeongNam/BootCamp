@@ -38,6 +38,7 @@ public class Author {
     /*
     author를 초기화 할때 post 객체가 필요할 시에 서언
     mappedBy의 연관관계의 주인을 명시하고 , fk를 관리하는 변수명을 명시
+    1:1 관계일 경우 @OneToOne도 존재
      */
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
 //    @Setter

@@ -80,11 +80,11 @@ public class AuthorService {
         return listResDtos;
     }
 
-    public Author findById(long id) throws EntityNotFoundException {
+    public Author findById(Long id) throws EntityNotFoundException {
         return authorRepository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 
-    public AuthorDetailResDto findAuthorDetail(long id) throws EntityNotFoundException {
+    public AuthorDetailResDto findAuthorDetail(Long id) throws EntityNotFoundException {
         Author author =  this.findById(id);
         String role = author.getRole() == null || author.getRole() == Role.USER ? "일반 사용자" : "관리자" ;
         AuthorDetailResDto authorDetailResDto = new AuthorDetailResDto();
@@ -98,7 +98,7 @@ public class AuthorService {
         return authorDetailResDto;
     }
 
-    public void update(AuthorUpdateDto authorUpdateDto ) throws EntityNotFoundException {
+    public Author update(AuthorUpdateDto authorUpdateDto ) throws EntityNotFoundException {
         Author author =  this.findById(authorUpdateDto.getId());
 //        author.AuthorUpdate(authorUpdateDto.getName(), authorUpdateDto.getPassword());
         List<Post> posts = new ArrayList<>();
@@ -120,9 +120,10 @@ public class AuthorService {
          객체에 변경이 감지(dirty checking) 되면, 트랜잭션이 완료되는 시점에 save 동작.
          */
         // authorRepository.save(author);
+         return author;
     };
 
-    public void delete(long id) throws EntityNotFoundException {
+    public void delete(Long id) throws EntityNotFoundException {
         authorRepository.deleteById(id);
     }
 
