@@ -1,8 +1,13 @@
 package com.encore.board.post.controller;
 
 import com.encore.board.post.dto.PostCreateDto;
+import com.encore.board.post.dto.PostListDto;
 import com.encore.board.post.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,20 +22,29 @@ public class PostController {
         this.postService = postService;
     }
 
-
     @GetMapping("/post/create")
     public String postCreatePage(){
         return "/post/post-create";
     }
+
     @PostMapping("/post/create")
-    public String postCreate(PostCreateDto postCreateDto){
-        postService.save(postCreateDto);
-        return "redirect:/post/list";
+    public String postCreate(PostCreateDto postCreateDto , Model model){
+        try{
+            postService.save(postCreateDto);
+            return "redirect:/post/list";
+        }catch (Exception e){
+            model.addAttribute("errorMessage", e.getMessage());
+            return "/post/post-create";
+        }
+
+
     }
 
+    // /post/list/?size=xx&page=xx&sort=xx,desc
     @GetMapping("/post/list")
-    public String postList(Model model){
-        model.addAttribute("postList", postService.findAll());
+    public String pagePostList(Model model , @PageableDefault(size = 10, sort = "updatedTime", direction = Sort.Direction.DESC) Pageable pageable){
+        Page<PostListDto> postListDtoList = postService.pageFindAll(pageable);
+        model.addAttribute("postList", postListDtoList);
         return "/post/post-list";
     }
 

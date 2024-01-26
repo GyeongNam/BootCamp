@@ -10,7 +10,7 @@
     <div class="page-header">
         <h1>회원 가입</h1>
     </div>
-    <form action="/author/save" method="post" >
+    <form action="/author/create" method="post" >
         <table class="table">
             <tr class="form-group">
                 <td><label for="name">이름 : </label></td>
@@ -36,7 +36,22 @@
             </tr>
         </table>
         <button type="submit"  class="btn btn-primary"> 가입 </button>
+<!--        <div th:if="${errorMessage != null}">-->
+<!--            <input type="hidden" id="error" th:value="${errorMessage}">-->
+<!--        </div>-->
     </form>
 </div>
 </body>
+<script th:inline="javascript" th:if="${errorMessage != null}">
+    // 서버에서 Thymeleaf를 사용하여 전달한 데이터 사용
+    var serverData = /*[[${errorMessage}]]*/ '';
+    alert(serverData);
+</script>
+<!--<script>-->
+<!--    let error = document.getElementById("error").value;-->
+<!--    console.log(error);-->
+<!--    if(error){-->
+<!--        alert(error);-->
+<!--    }-->
+<!--</script>-->
 </html>

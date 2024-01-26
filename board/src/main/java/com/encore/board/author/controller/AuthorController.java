@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.persistence.EntityNotFoundException;
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class AuthorController {
@@ -35,10 +36,18 @@ public class AuthorController {
         return "/author/author-create";
     }
 
-    @PostMapping("/author/save")
-    public String authorSave(AuthorSaveDto authorSaveDto){
-        authorService.save(authorSaveDto);
-        return "redirect:/author/list";
+    @PostMapping("/author/create")
+    public String authorSave(AuthorSaveDto authorSaveDto, Model model, HttpServletRequest request){
+        try {
+            authorService.save(authorSaveDto);
+            return "redirect:/author/list";
+        }catch (IllegalArgumentException e){
+            model.addAttribute("errorMessage", e.getMessage());
+//            return "redirect:"+request.getHeader("Referer");
+            return "/author/author-create";
+        }
+
+
     }
 
     @GetMapping("/author/list")

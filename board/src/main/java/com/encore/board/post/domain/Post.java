@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@Builder
+@Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
 public class Post {
@@ -27,6 +27,10 @@ public class Post {
     @Column(nullable = false, length = 3000)
     private String contents;
 
+    @Column(length = 1)
+    private String appointment;
+
+    private LocalDateTime appointmentTime;
 
     /*
     post 객체 입장에서는 한 사람이 여러 글을 생성할 수 있다.
@@ -39,15 +43,19 @@ public class Post {
 
     @CreationTimestamp
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    LocalDateTime createdTime;
+    private LocalDateTime createdTime;
 
     @UpdateTimestamp
     @Column(columnDefinition = "TIMESTAMP ON UPDATE CURRENT_TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    LocalDateTime updatedTime;
+    private LocalDateTime updatedTime;
 
 
     public void postUpdate(String title, String contents){
         this.title = title;
         this.contents = contents;
+    }
+
+    public void updateAppointment(String appointment){
+        this.appointment = appointment;
     }
 }

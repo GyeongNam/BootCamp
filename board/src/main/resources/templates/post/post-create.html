@@ -20,9 +20,29 @@
                 <td> <label for="contents">contents</label></td>
                 <td><textarea id="contents" name="contents" class="form-control" style="width: 1100px; height: 300px;"></textarea></td>
             </tr>
+            <tr class="form-group">
+                <td> <label for="email">email</label></td>
+                <td><input id="email" name="email" class="form-control"></td>
+            </tr>
+            <tr class="form-group">
+                <td> <label >예약여부</label></td>
+                <td>
+                    <input type="radio" id="appointment1" name="appointment" value="Y" /> Yes
+                    <input type="radio" id="appointment2" name="appointment"  checked /> No
+                </td>
+            </tr>
+            <tr class="form-group">
+                <td> <label for="appointmentTime">예약시간</label></td>
+                <td><input type="datetime-local" id="appointmentTime" name="appointmentTime" class="form-control"></td>
+            </tr>
         </table>
         <button type="submit"  class="btn btn-primary"> 등록하기 </button>
     </form>
 </div>
 </body>
+<script th:inline="javascript" th:if="${errorMessage != null}">
+    // 서버에서 Thymeleaf를 사용하여 전달한 데이터 사용
+    var serverData = /*[[${errorMessage}]]*/ '';
+    alert(serverData);
+</script>
 </html>

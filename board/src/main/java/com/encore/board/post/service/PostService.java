@@ -8,10 +8,14 @@ import com.encore.board.post.dto.PostDetailDto;
 import com.encore.board.post.dto.PostListDto;
 import com.encore.board.post.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,20 +35,33 @@ public class PostService {
 
     public void save(PostCreateDto postCreateDto){
         Author author = authorRepository.findByEmail(postCreateDto.getEmail()).orElse(null);
+        LocalDateTime localDateTime = null;
+        String appointment = null;
+        if(postCreateDto.getAppointment().equals("Y") && !postCreateDto.getAppointmentTime().isEmpty() ){
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+            localDateTime = LocalDateTime.parse(postCreateDto.getAppointmentTime(), dateTimeFormatter);
+            LocalDateTime now = LocalDateTime.now();
+            if(localDateTime.isBefore(now) ){
+                throw new IllegalArgumentException("시간정복 잘못 입력");
+            }
+            appointment = "Y";
+        }
         Post post = Post.builder()
                 .title(postCreateDto.getTitle())
                 .contents(postCreateDto.getContents())
                 .author(authorRepository.findByEmail(postCreateDto.getEmail()).orElse(null))
+                .appointment(appointment)
+                .appointmentTime(localDateTime)
                 .build();
 
         // 더티 채킹 테스트
-        author.AuthorUpdate("터티 채킹 테스트", "1234");
+//        author.AuthorUpdate("터티 채킹 테스트", "1234");
 
         postRepository.save(post);
     }
 
     public List<PostListDto> findAll(){
-        List<Post> PostList = postRepository.findAllFetchJoin();
+        List<Post> PostList = postRepository.findAll();
         List<PostListDto> listDto = new ArrayList<>();
         for(Post post : PostList){
             PostListDto postListDto = new PostListDto();
@@ -55,6 +72,22 @@ public class PostService {
         }
         return listDto;
     }
+
+    public Page<PostListDto> pageFindAll(Pageable pageable){
+        Page<Post> PostList = postRepository.findAllByAppointment(pageable, null);
+        Page<PostListDto> listDto = PostList.map(
+                p-> new PostListDto(
+                        p.getId(),
+                        p.getTitle(),
+                        p.getAuthor() == null ? "익명유저" : p.getAuthor().getEmail(),
+                        p.getAppointment(),
+                        p.getAppointmentTime()
+                    )
+                );
+        return listDto;
+    }
+
+
 
     public Post findById(long id) throws EntityNotFoundException {
         return postRepository.findById(id).orElseThrow(EntityNotFoundException::new);
