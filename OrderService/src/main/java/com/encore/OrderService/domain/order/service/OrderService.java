@@ -43,7 +43,7 @@ public class OrderService {
     }
 
     public OrderingResDTO orderAdd(OrderingReqCreateDTO orderingReqCreateDTO) {
-        if(orderingReqCreateDTO.getItems().size() == 0){
+        if(orderingReqCreateDTO.getItems().isEmpty()){
             throw new IllegalArgumentException("아이템 목록이 존재하지 않습니다.");
         }
 
@@ -86,7 +86,8 @@ public class OrderService {
                                ).toList()
                        )
                        .orderStatus(oied.getOrderStatus().toString())
-                       .build()
+               .build()
         );
     }
+
 }

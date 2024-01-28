@@ -35,7 +35,12 @@ public class MemberController {
     }
 
     @GetMapping("/members")
-    public  ResponseEntity<Map<String, Object>> members(Pageable pageable){
+    public ResponseEntity<Map<String, Object>> members(Pageable pageable){
         return ResponseType.responseMassage(HttpStatus.OK, memberService.memberList(pageable));
+    }
+
+    @GetMapping("/member/{id}/orders")
+    public ResponseEntity<Map<String, Object>> memberOrders(@PathVariable Long id,  Pageable pageable){
+        return ResponseType.responseMassage(HttpStatus.OK, memberService.memberOrderList(pageable, id));
     }
 }
