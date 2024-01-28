@@ -1,19 +1,18 @@
 package com.encore.OrderService.domain.member.domain;
 
+import com.encore.OrderService.domain.member.reqdto.MemberReqCreateDTO;
+import com.encore.OrderService.domain.member.resdto.MemberResMemberDTO;
 import com.encore.OrderService.domain.ordering.domain.Ordering;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Generated;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.GeneratedColumn;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
+@Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,6 +23,7 @@ public class Member {
 
     private String name;
 
+    @Column(unique = true)
     private String email;
 
     private String password;
@@ -44,4 +44,29 @@ public class Member {
     @Column(columnDefinition = "TIMESTAMP ON UPDATE CURRENT_TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime updatedTime;
 
+    public static MemberReqCreateDTO MemberToMemberReqCreateDTO(Member member){
+        return MemberReqCreateDTO.builder()
+                .name(member.getName())
+                .email(member.getEmail())
+                .password(member.getPassword())
+                .address(member.getAddress())
+                .role((member.getRole().equals(Role.ADMIN) ? Role.ADMIN : Role.USER).toString())
+                .build();
+    }
+
+    public static MemberResMemberDTO MemberToMemberResCreateDTO(Member member){
+        return MemberResMemberDTO.builder()
+                .id(member.getId())
+                .name(member.getName())
+                .email(member.getEmail())
+                .password(member.getPassword())
+                .address(member.getAddress())
+                .orderings(member.getOrderings())
+                .createdTime(member.getCreatedTime().toString())
+                .updatedTime(member.getUpdatedTime().toString())
+                .role((member.getRole().equals(Role.ADMIN) ? Role.ADMIN : Role.USER).toString())
+                .build();
+    }
+
 }
+
