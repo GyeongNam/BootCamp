@@ -46,5 +46,14 @@ public class OrderController {
         }
     }
 
+    @GetMapping("/order-items/{id}")
+    public ResponseEntity<Map<String, Object>> orderItemList(@PathVariable Long id, Pageable pageable){
+        try {
+            return ResponseType.responseMassage(HttpStatus.OK, orderService.orderItemList(id, pageable));
+        }catch (Exception e){
+            return ResponseType.responseErrorMassage(HttpStatus.NOT_MODIFIED, e.getMessage());
+        }
+    }
+
 
 }

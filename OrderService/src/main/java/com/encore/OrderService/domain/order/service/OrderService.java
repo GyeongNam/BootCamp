@@ -2,8 +2,6 @@ package com.encore.OrderService.domain.order.service;
 
 import com.encore.OrderService.domain.item.domain.Item;
 import com.encore.OrderService.domain.item.service.ItemService;
-import com.encore.OrderService.domain.member.domain.Member;
-import com.encore.OrderService.domain.member.repository.MemberRepository;
 import com.encore.OrderService.domain.member.service.MemberService;
 import com.encore.OrderService.domain.order.domain.OrderItem;
 import com.encore.OrderService.domain.order.domain.OrderStatus;
@@ -117,5 +115,17 @@ public class OrderService {
                 )
                 .orderStatus(ordering.getOrderStatus().toString())
         .build();
+    }
+
+    public Page<OrderItemResDTO> orderItemList(Long id, Pageable pageable) {
+        return orderItemRepository.findAllByOrderingId(pageable, id)
+                .map(
+                 oird-> OrderItemResDTO.builder()
+                         .id(oird.getId())
+                         .quantity(oird.getQuantity())
+                         .item_id(oird.getItem().getId())
+                         .ordering_id(oird.getOrdering().getId())
+                         .build()
+                );
     }
 }
