@@ -12,9 +12,12 @@ import com.encore.OrderService.domain.order.repository.OrderItemRepository;
 import com.encore.OrderService.domain.order.repository.OrderingRepository;
 import com.encore.OrderService.domain.order.reqdto.OrderItemReqDTO;
 import com.encore.OrderService.domain.order.reqdto.OrderingReqCreateDTO;
+import com.encore.OrderService.domain.order.resdto.OrderItemResDTO;
 import com.encore.OrderService.domain.order.resdto.OrderingResDTO;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -65,5 +68,25 @@ public class OrderService {
         }
 
         return Ordering.OrderingToOrderResDTO(orderingRepository.save(ordering));
+    }
+
+    public Page<OrderingResDTO> orderingFindAll(Pageable pageable) {
+        return orderingRepository.findAll(pageable).map(
+               oied -> OrderingResDTO.builder()
+                       .id(oied.getId())
+                       .member_id(oied.getMember().getId())
+                       .orderItems(
+                               oied.getOrderItems().stream().map(
+                                       oi -> OrderItemResDTO.builder()
+                                               .id(oi.getId())
+                                               .quantity(oi.getQuantity())
+                                               .item_id(oi.getItem().getId())
+                                               .ordering_id(oi.getOrdering().getId())
+                                               .build()
+                               ).toList()
+                       )
+                       .orderStatus(oied.getOrderStatus().toString())
+                       .build()
+        );
     }
 }
