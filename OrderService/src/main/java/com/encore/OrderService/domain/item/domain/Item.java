@@ -23,9 +23,9 @@ public class Item {
 
     private String name;
 
-    private Long price;
+    private long price;
 
-    private Long stockQuantity;
+    private long stockQuantity;
 
     private String imagePath;
 
