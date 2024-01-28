@@ -14,6 +14,7 @@ import com.encore.OrderService.domain.order.reqdto.OrderItemReqDTO;
 import com.encore.OrderService.domain.order.reqdto.OrderingReqCreateDTO;
 import com.encore.OrderService.domain.order.resdto.OrderItemResDTO;
 import com.encore.OrderService.domain.order.resdto.OrderingResDTO;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -42,6 +43,10 @@ public class OrderService {
         this.itemService = itemService;
     }
 
+    public Ordering findById(Long id) throws EntityNotFoundException{
+       return orderingRepository.findById(id).orElseThrow(()->new EntityNotFoundException("찾을 수 없는 주문입니다."));
+    }
+
     public OrderingResDTO orderAdd(OrderingReqCreateDTO orderingReqCreateDTO) {
         if(orderingReqCreateDTO.getItems().isEmpty()){
             throw new IllegalArgumentException("아이템 목록이 존재하지 않습니다.");
@@ -55,7 +60,7 @@ public class OrderService {
 
         for(OrderItemReqDTO orderItemReqDTO : orderingReqCreateDTO.getItems()){
             Item item = itemService.findById(orderItemReqDTO.getItem_id());
-            OrderItem orderItem= OrderItem.builder()
+            OrderItem orderItem = OrderItem.builder()
                     .ordering(ordering)
                     .item(item)
                     .quantity(orderItemReqDTO.getQuantity())
@@ -64,7 +69,7 @@ public class OrderService {
             if(item.getStockQuantity() < orderItemReqDTO.getQuantity()){
                 throw new IllegalArgumentException("재고 부족");
             }
-            item.StockQuantityUpdate(orderItemReqDTO.getQuantity());
+            item.StockQuantityUpdate(item.getStockQuantity() - orderItemReqDTO.getQuantity());
         }
 
         return Ordering.OrderingToOrderResDTO(orderingRepository.save(ordering));
@@ -90,4 +95,27 @@ public class OrderService {
         );
     }
 
+    public OrderingResDTO orderCancel(Long id) {
+        Ordering ordering = this.findById(id);
+        for(OrderItem orderItem : ordering.getOrderItems()){
+            Item item = itemService.findById(orderItem.getItem().getId());
+            item.StockQuantityUpdate(item.getStockQuantity()+orderItem.getQuantity());
+        }
+        ordering.orderStatusUpdate(OrderStatus.CANCELED);
+        return OrderingResDTO.builder()
+                .id(ordering.getId())
+                .member_id(ordering.getMember().getId())
+                .orderItems(
+                        ordering.getOrderItems().stream().map(
+                                oi -> OrderItemResDTO.builder()
+                                        .id(oi.getId())
+                                        .quantity(oi.getQuantity())
+                                        .item_id(oi.getItem().getId())
+                                        .ordering_id(oi.getOrdering().getId())
+                                        .build()
+                        ).toList()
+                )
+                .orderStatus(ordering.getOrderStatus().toString())
+        .build();
+    }
 }

@@ -37,5 +37,14 @@ public class OrderController {
         return ResponseType.responseMassage(HttpStatus.OK, orderService.orderingFindAll(pageable));
     }
 
+    @PatchMapping("/order/{id}/cancel")
+    public ResponseEntity<Map<String, Object>> orderCancel(@PathVariable Long id){
+        try {
+            return ResponseType.responseMassage(HttpStatus.OK, orderService.orderCancel(id));
+        }catch (Exception e){
+            return ResponseType.responseErrorMassage(HttpStatus.NOT_MODIFIED, e.getMessage());
+        }
+    }
+
 
 }

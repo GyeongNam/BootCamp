@@ -43,7 +43,6 @@ public class Ordering {
     @Column(columnDefinition = "TIMESTAMP ON UPDATE CURRENT_TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime updatedTime;
 
-
     public static OrderingResDTO OrderingToOrderResDTO(Ordering ordering){
         return OrderingResDTO.builder()
                 .id(ordering.getId())
@@ -53,5 +52,7 @@ public class Ordering {
                 .updatedTime(ordering.getUpdatedTime())
                 .build();
     }
-
+    public void orderStatusUpdate(OrderStatus orderStatus){
+        this.orderStatus = orderStatus;
+    }
 }

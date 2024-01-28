@@ -42,6 +42,6 @@ public class Item {
     private LocalDateTime updatedTime;
 
     public void StockQuantityUpdate(long count){
-        this.stockQuantity -= count;
+        this.stockQuantity = count;
     }
 }
