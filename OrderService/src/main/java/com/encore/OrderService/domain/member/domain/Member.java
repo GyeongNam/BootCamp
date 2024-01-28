@@ -1,7 +1,7 @@
 package com.encore.OrderService.domain.member.domain;
 
 import com.encore.OrderService.domain.member.reqdto.MemberReqCreateDTO;
-import com.encore.OrderService.domain.member.resdto.MemberResMemberDTO;
+import com.encore.OrderService.domain.member.resdto.MemberResDTO;
 import com.encore.OrderService.domain.ordering.domain.Ordering;
 import jakarta.persistence.*;
 import lombok.*;
@@ -54,8 +54,8 @@ public class Member {
                 .build();
     }
 
-    public static MemberResMemberDTO MemberToMemberResCreateDTO(Member member){
-        return MemberResMemberDTO.builder()
+    public static MemberResDTO MemberToMemberResDTO(Member member){
+        return MemberResDTO.builder()
                 .id(member.getId())
                 .name(member.getName())
                 .email(member.getEmail())
