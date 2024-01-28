@@ -2,7 +2,8 @@ package com.encore.OrderService.domain.member.domain;
 
 import com.encore.OrderService.domain.member.reqdto.MemberReqCreateDTO;
 import com.encore.OrderService.domain.member.resdto.MemberResDTO;
-import com.encore.OrderService.domain.ordering.domain.Ordering;
+import com.encore.OrderService.domain.order.domain.Ordering;
+import com.encore.OrderService.domain.order.resdto.OrderingResDTO;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -44,16 +45,6 @@ public class Member {
     @Column(columnDefinition = "TIMESTAMP ON UPDATE CURRENT_TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime updatedTime;
 
-    public static MemberReqCreateDTO MemberToMemberReqCreateDTO(Member member){
-        return MemberReqCreateDTO.builder()
-                .name(member.getName())
-                .email(member.getEmail())
-                .password(member.getPassword())
-                .address(member.getAddress())
-                .role((member.getRole().equals(Role.ADMIN) ? Role.ADMIN : Role.USER).toString())
-                .build();
-    }
-
     public static MemberResDTO MemberToMemberResDTO(Member member){
         return MemberResDTO.builder()
                 .id(member.getId())
@@ -61,10 +52,9 @@ public class Member {
                 .email(member.getEmail())
                 .password(member.getPassword())
                 .address(member.getAddress())
-                .orderings(member.getOrderings())
                 .createdTime(member.getCreatedTime().toString())
                 .updatedTime(member.getUpdatedTime().toString())
-                .role((member.getRole().equals(Role.ADMIN) ? Role.ADMIN : Role.USER).toString())
+                .role((member.getRole().toString()))
                 .build();
     }
 

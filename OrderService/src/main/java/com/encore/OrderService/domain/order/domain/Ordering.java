@@ -1,12 +1,14 @@
-package com.encore.OrderService.domain.ordering.domain;
+package com.encore.OrderService.domain.order.domain;
 
 import com.encore.OrderService.domain.member.domain.Member;
-import com.encore.OrderService.domain.orderitem.domain.OrderItem;
+import com.encore.OrderService.domain.order.reqdto.OrderingReqCreateDTO;
+import com.encore.OrderService.domain.order.resdto.OrderItemResDTO;
+import com.encore.OrderService.domain.order.resdto.OrderingResDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.antlr.v4.runtime.misc.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -14,6 +16,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
+@Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -39,5 +42,16 @@ public class Ordering {
     @UpdateTimestamp
     @Column(columnDefinition = "TIMESTAMP ON UPDATE CURRENT_TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime updatedTime;
+
+
+    public static OrderingResDTO OrderingToOrderResDTO(Ordering ordering){
+        return OrderingResDTO.builder()
+                .id(ordering.getId())
+                .member_id(ordering.getMember().getId())
+                .orderStatus(ordering.getOrderStatus().toString())
+                .createdTime(ordering.getCreatedTime())
+                .updatedTime(ordering.getUpdatedTime())
+                .build();
+    }
 
 }

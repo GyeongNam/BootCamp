@@ -2,7 +2,8 @@ package com.encore.OrderService.domain.member.resdto;
 
 import com.encore.OrderService.domain.member.domain.Member;
 import com.encore.OrderService.domain.member.domain.Role;
-import com.encore.OrderService.domain.ordering.domain.Ordering;
+import com.encore.OrderService.domain.order.domain.Ordering;
+import com.encore.OrderService.domain.order.resdto.OrderingResDTO;
 import lombok.Builder;
 import lombok.Data;
 
@@ -17,19 +18,6 @@ public class MemberResDTO {
     private String password;
     private String address;
     private String role;
-    private List<Ordering> orderings;
     private String createdTime;
     private String updatedTime;
-
-    public static Member MemberResMemberDTOToMember(MemberResDTO memberResDTO){
-        return Member.builder()
-                .id(memberResDTO.getId())
-                .name(memberResDTO.getName())
-                .email(memberResDTO.getEmail())
-                .password(memberResDTO.getPassword())
-                .address(memberResDTO.getAddress())
-                .orderings(memberResDTO.getOrderings())
-                .role(memberResDTO.getRole().equals("ADMIN") ? Role.ADMIN : Role.USER)
-                .build();
-    }
 }
