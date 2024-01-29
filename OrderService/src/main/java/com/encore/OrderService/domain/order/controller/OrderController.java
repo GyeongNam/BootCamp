@@ -16,7 +16,6 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api")
 public class OrderController {
-
     private final OrderService orderService;
     @Autowired
     public OrderController(OrderService orderService){
@@ -25,11 +24,7 @@ public class OrderController {
 
     @PostMapping("/order/new")
     public ResponseEntity<Map<String, Object>> orderCreate(@RequestBody OrderingReqCreateDTO orderingReqCreateDTO){
-        try {
-            return ResponseType.responseMassage(HttpStatus.CREATED, orderService.orderAdd(orderingReqCreateDTO));
-        }catch (Exception e){
-            return ResponseType.responseErrorMassage(HttpStatus.BAD_REQUEST, e.getMessage());
-        }
+        return ResponseType.responseMassage(HttpStatus.CREATED, orderService.orderAdd(orderingReqCreateDTO));
     }
 
     @GetMapping("/orders")
@@ -39,20 +34,12 @@ public class OrderController {
 
     @PatchMapping("/order/{id}/cancel")
     public ResponseEntity<Map<String, Object>> orderCancel(@PathVariable Long id){
-        try {
-            return ResponseType.responseMassage(HttpStatus.OK, orderService.orderCancel(id));
-        }catch (Exception e){
-            return ResponseType.responseErrorMassage(HttpStatus.NOT_MODIFIED, e.getMessage());
-        }
+        return ResponseType.responseMassage(HttpStatus.OK, orderService.orderCancel(id));
     }
 
     @GetMapping("/order-items/{id}")
     public ResponseEntity<Map<String, Object>> orderItemList(@PathVariable Long id, Pageable pageable){
-        try {
-            return ResponseType.responseMassage(HttpStatus.OK, orderService.orderItemList(id, pageable));
-        }catch (Exception e){
-            return ResponseType.responseErrorMassage(HttpStatus.NOT_MODIFIED, e.getMessage());
-        }
+        return ResponseType.responseMassage(HttpStatus.OK, orderService.orderItemList(id, pageable));
     }
 
 

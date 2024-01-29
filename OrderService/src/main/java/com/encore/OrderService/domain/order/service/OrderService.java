@@ -47,28 +47,29 @@ public class OrderService {
        return orderingRepository.findById(id).orElseThrow(()->new EntityNotFoundException("찾을 수 없는 주문입니다."));
     }
 
-    public OrderingResDTO orderAdd(OrderingReqCreateDTO orderingReqCreateDTO) {
+    public OrderingResDTO orderAdd(OrderingReqCreateDTO orderingReqCreateDTO) throws EntityNotFoundException {
         if(orderingReqCreateDTO.getItems().isEmpty()){
-            throw new IllegalArgumentException("아이템 목록이 존재하지 않습니다.");
+            throw new EntityNotFoundException("아이템 목록이 존재하지 않습니다.");
+        }
+        for(OrderItemReqDTO orderItemReqDTO : orderingReqCreateDTO.getItems()) {
+            if (itemService.findById(orderItemReqDTO.getItem_id()).getStockQuantity() < orderItemReqDTO.getQuantity()) {
+                throw new EntityNotFoundException("재고 부족");
+            }
         }
 
-        Ordering ordering = Ordering.builder()
-                .member(memberService.findById(orderingReqCreateDTO.getMember_id()))
-                .orderStatus(OrderStatus.ORDERED)
-                .build();
-        orderingRepository.save(ordering);
+        Ordering ordering = orderingRepository.save(
+                OrderingReqCreateDTO.OrderingReqCreateDTOToOrdering(
+                        memberService.findById(orderingReqCreateDTO.getMember_id()),
+                        OrderStatus.ORDERED
+                )
+        );
 
         for(OrderItemReqDTO orderItemReqDTO : orderingReqCreateDTO.getItems()){
             Item item = itemService.findById(orderItemReqDTO.getItem_id());
-            if(item.getStockQuantity() < orderItemReqDTO.getQuantity()){
-                throw new IllegalArgumentException("재고 부족");
-            }
-            OrderItem orderItem = OrderItem.builder()
-                    .ordering(ordering)
-                    .item(item)
-                    .quantity(orderItemReqDTO.getQuantity())
-                    .build();
-            orderItemRepository.save(orderItem);
+
+            orderItemRepository.save(OrderingResDTO.OrderingResDTOToOrderItem(
+                    ordering, item, orderItemReqDTO
+            ));
 
             item.StockQuantityUpdate(item.getStockQuantity() - orderItemReqDTO.getQuantity());
         }

@@ -27,11 +27,7 @@ public class MemberController {
 
     @PostMapping("/member/new")
     public ResponseEntity<Map<String, Object>> memberRegister(MemberReqCreateDTO memberReqCreateDTO){
-        try{
-            return ResponseType.responseMassage(HttpStatus.CREATED, memberService.register(memberReqCreateDTO));
-        }catch (Exception e){
-            return ResponseType.responseErrorMassage(HttpStatus.CONFLICT, e.getMessage());
-        }
+        return ResponseType.responseMassage(HttpStatus.CREATED, memberService.register(memberReqCreateDTO));
     }
 
     @GetMapping("/members")
@@ -40,7 +36,7 @@ public class MemberController {
     }
 
     @GetMapping("/member/{id}/orders")
-    public ResponseEntity<Map<String, Object>> memberOrders(@PathVariable Long id,  Pageable pageable){
+    public ResponseEntity<Map<String, Object>> memberOrders(@PathVariable Long id, Pageable pageable){
         return ResponseType.responseMassage(HttpStatus.OK, memberService.memberOrderList(pageable, id));
     }
 }

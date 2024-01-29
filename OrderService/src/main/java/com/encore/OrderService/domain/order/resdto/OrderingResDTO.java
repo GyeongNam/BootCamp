@@ -1,8 +1,11 @@
 package com.encore.OrderService.domain.order.resdto;
 
+import com.encore.OrderService.domain.item.domain.Item;
 import com.encore.OrderService.domain.member.domain.Member;
 import com.encore.OrderService.domain.order.domain.OrderItem;
 import com.encore.OrderService.domain.order.domain.OrderStatus;
+import com.encore.OrderService.domain.order.domain.Ordering;
+import com.encore.OrderService.domain.order.reqdto.OrderItemReqDTO;
 import lombok.Builder;
 import lombok.Data;
 
@@ -18,4 +21,16 @@ public class OrderingResDTO {
     private List<OrderItemResDTO> orderItems;
     private LocalDateTime createdTime;
     private LocalDateTime updatedTime;
+
+    public static OrderItem OrderingResDTOToOrderItem(
+            Ordering ordering,
+            Item item,
+            OrderItemReqDTO orderItemReqDTO
+            ){
+        return OrderItem.builder()
+                .ordering(ordering)
+                .item(item)
+                .quantity(orderItemReqDTO.getQuantity())
+                .build();
+    }
 }

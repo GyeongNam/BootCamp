@@ -9,6 +9,7 @@ import com.encore.OrderService.domain.order.repository.OrderingRepository;
 import com.encore.OrderService.domain.order.resdto.OrderingResDTO;
 import jakarta.persistence.EntityExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -32,9 +33,9 @@ public class MemberService {
         return memberRepository.findById(id).orElseThrow(()->new EntityExistsException("존재하지 않는 회원 아이디 입니다."));
     }
 
-    public MemberResDTO register(MemberReqCreateDTO memberReqCreateDTO) throws IllegalArgumentException {
+    public MemberResDTO register(MemberReqCreateDTO memberReqCreateDTO) throws DataIntegrityViolationException {
         if(memberRepository.findByEmail(memberReqCreateDTO.getEmail()).isPresent()){
-            throw new IllegalArgumentException("중복 이메일 입니다.");
+            throw new DataIntegrityViolationException("중복 이메일 입니다.");
         }
         return Member.MemberToMemberResDTO(
                 memberRepository.save(
@@ -51,8 +52,7 @@ public class MemberService {
     }
 
     public Page<OrderingResDTO> memberOrderList(Pageable pageable, Long id) {
-        Member member = this.findById(id);
-        return orderingRepository.findAllByMember(pageable,member).map(
+        return orderingRepository.findAllByMemberId(pageable,id).map(
                 Ordering::OrderingToOrderResDTO
         );
     }

@@ -2,6 +2,7 @@ package com.encore.OrderService.config;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -14,16 +15,24 @@ import java.util.Map;
 @ControllerAdvice
 public class ResponseType {
 
-    @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<Map<String, Object>> entityNotFoundExceptionHandler(EntityNotFoundException e){
-        log.error("EntityNotFoundException message : " + e.getMessage());
-        return responseErrorMassage(HttpStatus.NOT_FOUND,e.getMessage());
-    }
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Map<String, Object>> AllExceptionHandler(Exception e){
+        if(e instanceof EntityNotFoundException){
+            log.error("EntityNotFoundException message : " + e.getMessage());
+            return responseErrorMassage(HttpStatus.NOT_FOUND, e.getMessage());
+        }
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<Map<String, Object>> IllegalArgumentExceptionHandler(IllegalArgumentException e){
-        log.error("IllegalArgumentException : " + e.getMessage());
-        return responseErrorMassage(HttpStatus.BAD_REQUEST,e.getMessage());
+        if(e instanceof IllegalArgumentException){
+            log.error("IllegalArgumentException message : " + e.getMessage());
+            return responseErrorMassage(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+
+        if(e instanceof DataIntegrityViolationException){
+            log.error("DataIntegrityViolationException message : " + e.getMessage());
+            return responseErrorMassage(HttpStatus.CONFLICT, e.getMessage());
+        }
+
+        return responseErrorMassage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
     }
 
     public static ResponseEntity<Map<String, Object>> responseMassage(HttpStatus status, Object object){
