@@ -8,6 +8,7 @@ import com.encore.OrderService.domain.order.domain.Ordering;
 import com.encore.OrderService.domain.order.repository.OrderingRepository;
 import com.encore.OrderService.domain.order.resdto.OrderingResDTO;
 import jakarta.persistence.EntityExistsException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -29,8 +30,8 @@ public class MemberService {
         this.orderingRepository = orderingRepository;
     }
 
-    public Member findById (Long id) throws EntityExistsException{
-        return memberRepository.findById(id).orElseThrow(()->new EntityExistsException("존재하지 않는 회원 아이디 입니다."));
+    public Member findById (Long id) throws EntityNotFoundException {
+        return memberRepository.findById(id).orElseThrow(()->new EntityNotFoundException("존재하지 않는 회원 아이디 입니다."));
     }
 
     public MemberResDTO register(MemberReqCreateDTO memberReqCreateDTO) throws DataIntegrityViolationException {
