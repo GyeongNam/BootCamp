@@ -5,6 +5,7 @@ import com.encore.board.author.dto.AuthorDetailResDto;
 import com.encore.board.author.dto.AuthorSaveDto;
 import com.encore.board.author.dto.AuthorUpdateDto;
 import com.encore.board.author.service.AuthorService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 
+@Slf4j
 @Controller
 public class AuthorController {
 
@@ -44,10 +46,9 @@ public class AuthorController {
         }catch (IllegalArgumentException e){
             model.addAttribute("errorMessage", e.getMessage());
 //            return "redirect:"+request.getHeader("Referer");
+            log.error(e.getMessage());
             return "/author/author-create";
         }
-
-
     }
 
     @GetMapping("/author/list")
@@ -62,6 +63,7 @@ public class AuthorController {
             model.addAttribute("author",authorService.findAuthorDetail(id));
             return "/author/author-detail";
         }catch (EntityNotFoundException e){
+            log.error(e.getMessage());
             return "redirect:/author/list";
         }
     }
@@ -73,6 +75,7 @@ public class AuthorController {
             Author author = authorService.update(authorUpdateDto);
             return "redirect:/author/detail/"+author.getId();
         }catch (EntityNotFoundException e){
+            log.error(e.getMessage());
             return "redirect:/author/list";
         }
     }

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+    <!--CONSOLE 로그 관련 설정-->
+    <appender name = "CONSOLE" class ="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %logger{36} - %msg%n </pattern>
+        </encoder>
+    </appender>
+
+    <!--정상로그 관련 설정 -->
+    <!--로깅에서 rolling 이라는 것은 날짜의 변함에 따라 파일을 새롭게 만들어주는 것 -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/app.log</file>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %logger{36} - %msg%n </pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/app.%d{yyyy-MM-dd HH:mm:ss}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <!--에러로그 관련 설정 -->
+    <appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>error</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <file>logs/app-error.log</file>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %logger{36} - %msg%n </pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/app-error.%d{yyyy-MM-dd HH:mm:ss}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+<!--info 로그의 경우 정상 log파일로 분리-->
+    <root level = "info">
+    <!--console 과 정상 로그파일레 로그내용 추가-->
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="ERROR_FILE"/>
+    </root>
+<!--error 로그의 경우 에러 log 파일로 분리-->
+<!--    <logger level = "error" name="com.encore.board">-->
+<!--        <appender-ref ref="ERROR_FILE"/>-->
+<!--    </logger>-->
+
+
+
+</configuration>
