@@ -1,8 +1,6 @@
 package com.encore.OrderService.domain.order.domain;
 
 import com.encore.OrderService.domain.member.domain.Member;
-import com.encore.OrderService.domain.order.reqdto.OrderingReqCreateDTO;
-import com.encore.OrderService.domain.order.resdto.OrderItemResDTO;
 import com.encore.OrderService.domain.order.resdto.OrderingResDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -44,13 +42,27 @@ public class Ordering {
     private LocalDateTime updatedTime;
 
     public static OrderingResDTO OrderingToOrderResDTO(Ordering ordering){
-        return OrderingResDTO.builder()
-                .id(ordering.getId())
-                .member_id(ordering.getMember().getId())
-                .orderStatus(ordering.getOrderStatus().toString())
-                .createdTime(ordering.getCreatedTime())
-                .updatedTime(ordering.getUpdatedTime())
-                .build();
+        if(ordering.getOrderItems() == null){
+            return OrderingResDTO.builder()
+                    .id(ordering.getId())
+                    .member_id(ordering.getMember().getId())
+                    .orderStatus(ordering.getOrderStatus().toString())
+                    .createdTime(ordering.getCreatedTime())
+                    .updatedTime(ordering.getUpdatedTime())
+                    .build();
+        }else{
+            return OrderingResDTO.builder()
+                    .id(ordering.getId())
+                    .member_id(ordering.getMember().getId())
+                    .orderStatus(ordering.getOrderStatus().toString())
+                    .orderItems(ordering.getOrderItems().stream().map(
+                            OrderItem::OrderItemToOrderItemResDTO
+                    ).toList())
+                    .createdTime(ordering.getCreatedTime())
+                    .updatedTime(ordering.getUpdatedTime())
+                    .build();
+        }
+
     }
     public void orderStatusUpdate(OrderStatus orderStatus){
         this.orderStatus = orderStatus;

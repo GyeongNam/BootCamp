@@ -1,7 +1,7 @@
 package com.encore.OrderService.domain.order.domain;
 
 import com.encore.OrderService.domain.item.domain.Item;
-import com.encore.OrderService.domain.order.domain.Ordering;
+import com.encore.OrderService.domain.order.resdto.OrderItemResDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,5 +40,14 @@ public class OrderItem {
     @UpdateTimestamp
     @Column(columnDefinition = "TIMESTAMP ON UPDATE CURRENT_TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime updatedTime;
+
+    public static OrderItemResDTO OrderItemToOrderItemResDTO(OrderItem orderItem){
+        return OrderItemResDTO.builder()
+                .id(orderItem.getId())
+                .quantity(orderItem.getQuantity())
+                .item_id(orderItem.getItem().getId())
+                .ordering_id(orderItem.getOrdering().getId())
+                .build();
+    }
 
 }

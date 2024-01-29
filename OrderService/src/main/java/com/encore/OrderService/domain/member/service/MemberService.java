@@ -6,9 +6,7 @@ import com.encore.OrderService.domain.member.reqdto.MemberReqCreateDTO;
 import com.encore.OrderService.domain.member.resdto.MemberResDTO;
 import com.encore.OrderService.domain.order.domain.Ordering;
 import com.encore.OrderService.domain.order.repository.OrderingRepository;
-import com.encore.OrderService.domain.order.resdto.OrderItemResDTO;
 import com.encore.OrderService.domain.order.resdto.OrderingResDTO;
-import com.encore.OrderService.domain.order.service.OrderService;
 import jakarta.persistence.EntityExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -55,21 +53,7 @@ public class MemberService {
     public Page<OrderingResDTO> memberOrderList(Pageable pageable, Long id) {
         Member member = this.findById(id);
         return orderingRepository.findAllByMember(pageable,member).map(
-                oied -> OrderingResDTO.builder()
-                        .id(oied.getId())
-                        .member_id(oied.getMember().getId())
-                        .orderItems(
-                                oied.getOrderItems().stream().map(
-                                        oi -> OrderItemResDTO.builder()
-                                                .id(oi.getId())
-                                                .quantity(oi.getQuantity())
-                                                .item_id(oi.getItem().getId())
-                                                .ordering_id(oi.getOrdering().getId())
-                                                .build()
-                                ).toList()
-                        )
-                        .orderStatus(oied.getOrderStatus().toString())
-                .build()
+                Ordering::OrderingToOrderResDTO
         );
     }
 }

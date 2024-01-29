@@ -14,11 +14,12 @@ import com.encore.OrderService.domain.order.resdto.OrderItemResDTO;
 import com.encore.OrderService.domain.order.resdto.OrderingResDTO;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
+@Slf4j
 @Service
 @Transactional
 public class OrderService {
@@ -27,6 +28,7 @@ public class OrderService {
     private final OrderItemRepository orderItemRepository;
     private final MemberService memberService;
     private final ItemService itemService;
+
 
     @Autowired
     public OrderService(
@@ -58,38 +60,25 @@ public class OrderService {
 
         for(OrderItemReqDTO orderItemReqDTO : orderingReqCreateDTO.getItems()){
             Item item = itemService.findById(orderItemReqDTO.getItem_id());
+            if(item.getStockQuantity() < orderItemReqDTO.getQuantity()){
+                throw new IllegalArgumentException("재고 부족");
+            }
             OrderItem orderItem = OrderItem.builder()
                     .ordering(ordering)
                     .item(item)
                     .quantity(orderItemReqDTO.getQuantity())
                     .build();
             orderItemRepository.save(orderItem);
-            if(item.getStockQuantity() < orderItemReqDTO.getQuantity()){
-                throw new IllegalArgumentException("재고 부족");
-            }
+
             item.StockQuantityUpdate(item.getStockQuantity() - orderItemReqDTO.getQuantity());
         }
 
-        return Ordering.OrderingToOrderResDTO(orderingRepository.save(ordering));
+        return Ordering.OrderingToOrderResDTO(ordering);
     }
 
     public Page<OrderingResDTO> orderingFindAll(Pageable pageable) {
         return orderingRepository.findAll(pageable).map(
-               oied -> OrderingResDTO.builder()
-                       .id(oied.getId())
-                       .member_id(oied.getMember().getId())
-                       .orderItems(
-                               oied.getOrderItems().stream().map(
-                                       oi -> OrderItemResDTO.builder()
-                                               .id(oi.getId())
-                                               .quantity(oi.getQuantity())
-                                               .item_id(oi.getItem().getId())
-                                               .ordering_id(oi.getOrdering().getId())
-                                               .build()
-                               ).toList()
-                       )
-                       .orderStatus(oied.getOrderStatus().toString())
-               .build()
+               Ordering::OrderingToOrderResDTO
         );
     }
 
@@ -100,32 +89,11 @@ public class OrderService {
             item.StockQuantityUpdate(item.getStockQuantity()+orderItem.getQuantity());
         }
         ordering.orderStatusUpdate(OrderStatus.CANCELED);
-        return OrderingResDTO.builder()
-                .id(ordering.getId())
-                .member_id(ordering.getMember().getId())
-                .orderItems(
-                        ordering.getOrderItems().stream().map(
-                                oi -> OrderItemResDTO.builder()
-                                        .id(oi.getId())
-                                        .quantity(oi.getQuantity())
-                                        .item_id(oi.getItem().getId())
-                                        .ordering_id(oi.getOrdering().getId())
-                                        .build()
-                        ).toList()
-                )
-                .orderStatus(ordering.getOrderStatus().toString())
-        .build();
+        return Ordering.OrderingToOrderResDTO(ordering);
     }
 
     public Page<OrderItemResDTO> orderItemList(Long id, Pageable pageable) {
         return orderItemRepository.findAllByOrderingId(pageable, id)
-                .map(
-                 oird-> OrderItemResDTO.builder()
-                         .id(oird.getId())
-                         .quantity(oird.getQuantity())
-                         .item_id(oird.getItem().getId())
-                         .ordering_id(oird.getOrdering().getId())
-                         .build()
-                );
+                .map(OrderItem::OrderItemToOrderItemResDTO);
     }
 }
