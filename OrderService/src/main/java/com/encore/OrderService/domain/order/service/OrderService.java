@@ -67,7 +67,7 @@ public class OrderService {
         for(OrderItemReqDTO orderItemReqDTO : orderingReqCreateDTO.getItems()){
             Item item = itemService.findById(orderItemReqDTO.getItem_id());
 
-            orderItemRepository.save(OrderingResDTO.OrderingResDTOToOrderItem(
+            orderItemRepository.save(OrderItemReqDTO.OrderingResDTOToOrderItem(
                     ordering, item, orderItemReqDTO
             ));
 

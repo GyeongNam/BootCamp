@@ -21,16 +21,4 @@ public class OrderingResDTO {
     private List<OrderItemResDTO> orderItems;
     private LocalDateTime createdTime;
     private LocalDateTime updatedTime;
-
-    public static OrderItem OrderingResDTOToOrderItem(
-            Ordering ordering,
-            Item item,
-            OrderItemReqDTO orderItemReqDTO
-            ){
-        return OrderItem.builder()
-                .ordering(ordering)
-                .item(item)
-                .quantity(orderItemReqDTO.getQuantity())
-                .build();
-    }
 }
