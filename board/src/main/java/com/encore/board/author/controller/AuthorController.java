@@ -7,6 +7,7 @@ import com.encore.board.author.dto.AuthorUpdateDto;
 import com.encore.board.author.service.AuthorService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,6 +52,7 @@ public class AuthorController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/author/list")
     public String authorList(Model model){
         model.addAttribute("authorList", authorService.findAll());
@@ -99,5 +101,19 @@ public class AuthorController {
     @ResponseBody
     public AuthorDetailResDto circleIssueTest2(@PathVariable Long id){
         return authorService.findAuthorDetail(id);
+    }
+
+    /*
+    로그인 페이지
+     */
+
+    @GetMapping("/author/login-page")
+    public String loginPage(){
+        return "/author/author-login";
+    }
+
+    @PostMapping("/")
+    public String loging(){
+        return "/author/author-login";
     }
 }

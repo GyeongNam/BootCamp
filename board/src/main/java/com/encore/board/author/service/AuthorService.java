@@ -10,6 +10,7 @@ import com.encore.board.author.repository.AuthorRepository;
 import com.encore.board.post.domain.Post;
 import com.encore.board.post.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -22,13 +23,23 @@ import java.util.List;
 public class AuthorService {
     private final AuthorRepository authorRepository;
     private final PostRepository postRepository;
+    private final PasswordEncoder passwordEncoder;
     @Autowired
     public AuthorService(
             AuthorRepository authorRepository,
-            PostRepository postRepository
+            PostRepository postRepository,
+            PasswordEncoder passwordEncoder
     ){
         this.authorRepository = authorRepository;
         this.postRepository = postRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    public Author findById(Long id) throws EntityNotFoundException {
+        return authorRepository.findById(id).orElseThrow(()->new EntityNotFoundException("회원 존재하지 않음"));
+    }
+    public Author findByEmail(String email){
+        return authorRepository.findByEmail(email).orElseThrow(()->new EntityNotFoundException("회원 존재하지 않음"));
     }
 
     public void save(AuthorSaveDto authorSaveDto) throws IllegalArgumentException {
@@ -49,7 +60,7 @@ public class AuthorService {
         Author author = Author.builder()
                 .name(authorSaveDto.getName())
                 .email(authorSaveDto.getEmail())
-                .password(authorSaveDto.getPassword())
+                .password(passwordEncoder.encode(authorSaveDto.getPassword()))
                 .role(role)
 //                .posts(posts)
                 .build();
@@ -81,10 +92,6 @@ public class AuthorService {
             listResDtos.add(authorListResDto);
         }
         return listResDtos;
-    }
-
-    public Author findById(Long id) throws EntityNotFoundException {
-        return authorRepository.findById(id).orElseThrow(()->new EntityNotFoundException("회원 존재하지 않음"));
     }
 
     public AuthorDetailResDto findAuthorDetail(Long id) throws EntityNotFoundException {

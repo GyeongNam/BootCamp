@@ -35,6 +35,21 @@ dependencies {
 	 해당 라이브러리를 프로젝트에 추가하자마자 프로젝트 전역에 인증요구가 적용
 	 */
 	implementation 'org.springframework.boot:spring-boot-starter-security'
+
+	/*
+	타임리프에서 시큐리티 문법을 쓰기 위한 라이브러리
+	 */
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+
+	/*
+	레디스를 사용하기 위한 스타터 패키지
+	 */
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
+	/*
+	세션 스토리지를 redis에 저장하기 위한 패키지
+	 */
+	implementation 'org.springframework.session:spring-session-data-redis'
 }
 
 tasks.named('test') {

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <!--<head>-->
     <div th:fragment="headerFragment">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -9,9 +9,11 @@
         <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
             <a class="navbar-brand mx-auto" href="/">게시판 서비스</a>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a class="nav-link" href="/author/list">회원 관리</a></li>
-                <li class="nav-item"><a class="nav-link" href="/author/create">회원 가입</a></li>
+                <li sec:authorize="hasRole('ADMIN')" class="nav-item"><a class="nav-link" href="/author/list">회원 관리</a></li>
                 <li class="nav-item" ><a class="nav-link" href="/post/list">게시글 목록</a></li>
+                <li class="nav-item"><a class="nav-link" href="/author/create">회원 가입</a></li>
+                <li th:if="${session.email == null}" class="nav-item"><a class="nav-link" href="/author/login-page">로그인</a></li>
+                <li th:if="${session.email != null}" class="nav-item"><a class="nav-link" href="/doLogout">로그아웃</a></li>
             </ul>
         </nav>
     </div>

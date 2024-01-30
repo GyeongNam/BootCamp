@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpSession;
+
 @Slf4j
 @Controller
 public class PostController {
@@ -30,9 +32,9 @@ public class PostController {
     }
 
     @PostMapping("/post/create")
-    public String postCreate(PostCreateDto postCreateDto , Model model){
+    public String postCreate(PostCreateDto postCreateDto , Model model, HttpSession session){
         try{
-            postService.save(postCreateDto);
+            postService.save(postCreateDto, session.getAttribute("email").toString());
             return "redirect:/post/list";
         }catch (Exception e){
             model.addAttribute("errorMessage", e.getMessage());

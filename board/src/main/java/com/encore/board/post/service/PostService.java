@@ -33,8 +33,13 @@ public class PostService {
         this.authorRepository = authorRepository;
     }
 
-    public void save(PostCreateDto postCreateDto){
-        Author author = authorRepository.findByEmail(postCreateDto.getEmail()).orElse(null);
+    public void save(PostCreateDto postCreateDto, String email){
+        /*
+         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+         authentication.getName() 로 접근가능
+         */
+
+        Author author = authorRepository.findByEmail(email).orElse(null);
         LocalDateTime localDateTime = null;
         String appointment = null;
         if(postCreateDto.getAppointment().equals("Y") && !postCreateDto.getAppointmentTime().isEmpty() ){
@@ -49,7 +54,7 @@ public class PostService {
         Post post = Post.builder()
                 .title(postCreateDto.getTitle())
                 .contents(postCreateDto.getContents())
-                .author(authorRepository.findByEmail(postCreateDto.getEmail()).orElse(null))
+                .author(authorRepository.findByEmail(email).orElse(null))
                 .appointment(appointment)
                 .appointmentTime(localDateTime)
                 .build();

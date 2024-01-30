@@ -7,5 +7,8 @@
 </head>
 <body>
     <div th:replace="header :: headerFragment" ></div>
+    <div class="d-flex justify-content-end align-items-center">
+        <span th:text="${session.email != null} ? ${session.email} + '님 반갑습니다.' : '' " ></span>
+    </div>
 </body>
 </html>

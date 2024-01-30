@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:replace="header :: headerFragment" ></div>
+<div class="container">
+    <div class="page-header">
+        <h1>로그인</h1>
+    </div>
+    <form action="/doLogin" method="post" >
+        <table class="table">
+            <tr class="form-group">
+                <td><label for="email">이메일 : </label></td>
+                <td><input type="text" id="email" name="email" class="form-control"></td>
+            </tr>
+            <tr class="form-group">
+                <td> <label for="pw">비밀번호 : </label></td>
+                <td><input type="password" id="pw" name="pw" class="form-control"></td>
+            </tr>
+        </table>
+        <button type="submit"  class="btn btn-primary"> 로그인 </button>
+    </form>
+</div>
+</body>
+</html>
