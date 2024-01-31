@@ -36,8 +36,9 @@ public class Member {
     private Address address;
 
     @Column(nullable = false)
+    @Builder.Default
     @Enumerated(value = EnumType.STRING)
-    private Role role;
+    private Role role = Role.USER;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Ordering> orderings;
