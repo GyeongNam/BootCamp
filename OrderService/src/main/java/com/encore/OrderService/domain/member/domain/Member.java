@@ -1,11 +1,12 @@
 package com.encore.OrderService.domain.member.domain;
 
-import com.encore.OrderService.domain.member.reqdto.MemberReqCreateDTO;
 import com.encore.OrderService.domain.member.resdto.MemberResDTO;
 import com.encore.OrderService.domain.order.domain.Ordering;
-import com.encore.OrderService.domain.order.resdto.OrderingResDTO;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -22,15 +23,19 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
 
+    @Column(nullable = false)
     private String password;
 
-    private String address;
+    @Embedded
+    private Address address;
 
+    @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
@@ -51,7 +56,12 @@ public class Member {
                 .name(member.getName())
                 .email(member.getEmail())
                 .password(member.getPassword())
-                .address(member.getAddress())
+                .address(Address.builder()
+                        .city(member.getAddress().getCity())
+                        .street(member.getAddress().getStreet())
+                        .zipcode(member.getAddress().getZipcode())
+                        .build()
+                )
                 .createdTime(member.getCreatedTime().toString())
                 .updatedTime(member.getUpdatedTime().toString())
                 .role((member.getRole().toString()))

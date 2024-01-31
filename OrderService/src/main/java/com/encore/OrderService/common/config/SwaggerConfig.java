@@ -1,4 +1,4 @@
-package com.encore.OrderService.config;
+package com.encore.OrderService.common.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

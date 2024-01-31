@@ -7,8 +7,8 @@ import com.encore.OrderService.domain.member.resdto.MemberResDTO;
 import com.encore.OrderService.domain.order.domain.Ordering;
 import com.encore.OrderService.domain.order.repository.OrderingRepository;
 import com.encore.OrderService.domain.order.resdto.OrderingResDTO;
-import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
+@Transactional
 public class MemberService {
 
     private final MemberRepository memberRepository;

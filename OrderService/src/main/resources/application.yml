@@ -15,6 +15,10 @@ spring:
   mvc:
     path match:
       matching-strategy: ant_path_matcher
+  security:
+    user:
+      name: user
+      password: 1234 #PasswordEncoder.encode(password)
 
 springfox:
   documentation:

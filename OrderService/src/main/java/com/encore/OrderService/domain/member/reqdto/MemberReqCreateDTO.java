@@ -1,8 +1,11 @@
 package com.encore.OrderService.domain.member.reqdto;
 
 
+import com.encore.OrderService.domain.member.domain.Address;
 import com.encore.OrderService.domain.member.domain.Member;
-import com.encore.OrderService.domain.member.domain.Role;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,19 +17,31 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MemberReqCreateDTO {
+    @NotEmpty(message = "name is essential")
     private String name;
+
+    @NotEmpty(message = "email is essential")
+    @Email(message = "email is not valid")
     private String email;
+
+    @NotEmpty(message = "password is essential")
+    @Size(min = 4 , message = "minimum length is 4")
     private String password;
-    private String address;
-    private String role;
+
+    private String city;
+    private String street;
+    private String zipcode;
 
     public static Member MemberReqCreateDTOToMember(MemberReqCreateDTO memberReqCreateDTO){
         return Member.builder()
                 .name(memberReqCreateDTO.getName())
                 .email(memberReqCreateDTO.getEmail())
                 .password(memberReqCreateDTO.getPassword())
-                .address(memberReqCreateDTO.getAddress())
-                .role(memberReqCreateDTO.getRole().equals("ADMIN") ? Role.ADMIN : Role.USER)
+                .address(Address.builder()
+                        .city(memberReqCreateDTO.getCity())
+                        .street(memberReqCreateDTO.getStreet())
+                        .zipcode(memberReqCreateDTO.getZipcode())
+                        .build())
                 .build();
     }
 }

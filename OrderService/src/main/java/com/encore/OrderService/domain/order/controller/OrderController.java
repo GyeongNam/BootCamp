@@ -1,6 +1,7 @@
 package com.encore.OrderService.domain.order.controller;
 
-import com.encore.OrderService.config.ResponseType;
+import com.encore.OrderService.common.ResponseDTO;
+import com.encore.OrderService.common.config.ExceptionHandlerClass;
 import com.encore.OrderService.domain.order.reqdto.OrderingReqCreateDTO;
 import com.encore.OrderService.domain.order.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,23 +24,23 @@ public class OrderController {
     }
 
     @PostMapping("/order/new")
-    public ResponseEntity<Map<String, Object>> orderCreate(@RequestBody OrderingReqCreateDTO orderingReqCreateDTO){
-        return ResponseType.responseMassage(HttpStatus.CREATED, orderService.orderAdd(orderingReqCreateDTO));
+    public ResponseEntity<ResponseDTO> orderCreate(@RequestBody OrderingReqCreateDTO orderingReqCreateDTO){
+        return ExceptionHandlerClass.responseMassage(HttpStatus.CREATED, orderService.orderAdd(orderingReqCreateDTO));
     }
 
     @GetMapping("/orders")
-    public ResponseEntity<Map<String, Object>> orderList(Pageable pageable){
-        return ResponseType.responseMassage(HttpStatus.OK, orderService.orderingFindAll(pageable));
+    public ResponseEntity<ResponseDTO> orderList(Pageable pageable){
+        return ExceptionHandlerClass.responseMassage(HttpStatus.OK, orderService.orderingFindAll(pageable));
     }
 
     @PatchMapping("/order/{id}/cancel")
-    public ResponseEntity<Map<String, Object>> orderCancel(@PathVariable Long id){
-        return ResponseType.responseMassage(HttpStatus.OK, orderService.orderCancel(id));
+    public ResponseEntity<ResponseDTO> orderCancel(@PathVariable Long id){
+        return ExceptionHandlerClass.responseMassage(HttpStatus.OK, orderService.orderCancel(id));
     }
 
     @GetMapping("/order-items/{id}")
-    public ResponseEntity<Map<String, Object>> orderItemList(@PathVariable Long id, Pageable pageable){
-        return ResponseType.responseMassage(HttpStatus.OK, orderService.orderItemList(id, pageable));
+    public ResponseEntity<ResponseDTO> orderItemList(@PathVariable Long id, Pageable pageable){
+        return ExceptionHandlerClass.responseMassage(HttpStatus.OK, orderService.orderItemList(id, pageable));
     }
 
 
