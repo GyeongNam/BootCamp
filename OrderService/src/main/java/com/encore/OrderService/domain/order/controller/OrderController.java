@@ -23,22 +23,22 @@ public class OrderController {
 
     @PostMapping("/order/new")
     public ResponseEntity<ResponseDTO> orderCreate(@RequestBody OrderingReqCreateDTO orderingReqCreateDTO){
-        return ExceptionHandlerClass.responseMassage(HttpStatus.CREATED, orderService.orderAdd(orderingReqCreateDTO));
+        return ResponseDTO.responseMassage(HttpStatus.CREATED, orderService.orderAdd(orderingReqCreateDTO));
     }
 
     @GetMapping("/orders")
     public ResponseEntity<ResponseDTO> orderList(Pageable pageable){
-        return ExceptionHandlerClass.responseMassage(HttpStatus.OK, orderService.orderingFindAll(pageable));
+        return ResponseDTO.responseMassage(HttpStatus.OK, orderService.orderingFindAll(pageable));
     }
 
     @PatchMapping("/order/{id}/cancel")
     public ResponseEntity<ResponseDTO> orderCancel(@PathVariable Long id){
-        return ExceptionHandlerClass.responseMassage(HttpStatus.OK, orderService.orderCancel(id));
+        return ResponseDTO.responseMassage(HttpStatus.OK, orderService.orderCancel(id));
     }
 
     @GetMapping("/order-items/{id}")
     public ResponseEntity<ResponseDTO> orderItemList(@PathVariable Long id, Pageable pageable){
-        return ExceptionHandlerClass.responseMassage(HttpStatus.OK, orderService.orderItemList(id, pageable));
+        return ResponseDTO.responseMassage(HttpStatus.OK, orderService.orderItemList(id, pageable));
     }
 
 

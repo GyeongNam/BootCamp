@@ -57,7 +57,9 @@ public class Member {
                 .name(member.getName())
                 .email(member.getEmail())
                 .password(member.getPassword())
-                .address(Address.builder()
+                .address(
+                        member.getAddress() == null ? null :
+                        Address.builder()
                         .city(member.getAddress().getCity())
                         .street(member.getAddress().getStreet())
                         .zipcode(member.getAddress().getZipcode())

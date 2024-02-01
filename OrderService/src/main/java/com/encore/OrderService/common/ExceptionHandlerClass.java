@@ -18,31 +18,17 @@ public class ExceptionHandlerClass {
         log.error(e.getClass().getName() + " : " + e.getMessage());
 
         if(e instanceof EntityNotFoundException){
-            return responseErrorMassage(HttpStatus.NOT_FOUND, e.getMessage());
+            return ResponseDTO.responseErrorMassage(HttpStatus.NOT_FOUND, e.getMessage());
         }
 
         if(e instanceof IllegalArgumentException){
-            return responseErrorMassage(HttpStatus.BAD_REQUEST, e.getMessage());
+            return ResponseDTO.responseErrorMassage(HttpStatus.BAD_REQUEST, e.getMessage());
         }
 
         if(e instanceof DataIntegrityViolationException){
-            return responseErrorMassage(HttpStatus.CONFLICT, e.getMessage());
+            return ResponseDTO.responseErrorMassage(HttpStatus.CONFLICT, e.getMessage());
         }
 
-        return responseErrorMassage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
-    }
-
-    public static ResponseEntity<ResponseDTO> responseMassage(HttpStatus status, Object object){
-        return new ResponseEntity<>(
-                new ResponseDTO(status , "성공", object),
-                status
-        );
-    }
-
-    public static ResponseEntity<ResponseDTO> responseErrorMassage(HttpStatus status, String message){
-        return new ResponseEntity<>(
-                new ResponseDTO(status , "실패", message),
-                status
-        );
+        return ResponseDTO.responseErrorMassage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
     }
 }

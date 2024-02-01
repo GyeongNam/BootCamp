@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 @Data
@@ -32,11 +33,11 @@ public class MemberReqCreateDTO {
     private String street;
     private String zipcode;
 
-    public static Member MemberReqCreateDTOToMember(MemberReqCreateDTO memberReqCreateDTO){
+    public static Member MemberReqCreateDTOToMember(MemberReqCreateDTO memberReqCreateDTO, PasswordEncoder passwordEncoder){
         return Member.builder()
                 .name(memberReqCreateDTO.getName())
                 .email(memberReqCreateDTO.getEmail())
-                .password(memberReqCreateDTO.getPassword())
+                .password(passwordEncoder.encode(memberReqCreateDTO.getPassword()))
                 .address(Address.builder()
                         .city(memberReqCreateDTO.getCity())
                         .street(memberReqCreateDTO.getStreet())

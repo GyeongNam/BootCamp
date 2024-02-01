@@ -18,7 +18,7 @@ spring:
   security:
     user:
       name: user
-      password: 1234 #PasswordEncoder.encode(password)
+      password: passwordEncoder.encode(1234)
 
 springfox:
   documentation:
