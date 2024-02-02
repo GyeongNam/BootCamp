@@ -13,22 +13,22 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class ExceptionHandlerClass {
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ResponseDTO> AllExceptionHandler(Exception e){
+    public ResponseEntity<CommonResponse> AllExceptionHandler(Exception e){
 
         log.error(e.getClass().getName() + " : " + e.getMessage());
 
         if(e instanceof EntityNotFoundException){
-            return ResponseDTO.responseErrorMassage(HttpStatus.NOT_FOUND, e.getMessage());
+            return CommonResponse.responseErrorMassage(HttpStatus.NOT_FOUND, e.getMessage());
         }
 
         if(e instanceof IllegalArgumentException){
-            return ResponseDTO.responseErrorMassage(HttpStatus.BAD_REQUEST, e.getMessage());
+            return CommonResponse.responseErrorMassage(HttpStatus.BAD_REQUEST, e.getMessage());
         }
 
         if(e instanceof DataIntegrityViolationException){
-            return ResponseDTO.responseErrorMassage(HttpStatus.CONFLICT, e.getMessage());
+            return CommonResponse.responseErrorMassage(HttpStatus.CONFLICT, e.getMessage());
         }
 
-        return ResponseDTO.responseErrorMassage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        return CommonResponse.responseErrorMassage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
     }
 }

@@ -19,6 +19,12 @@ spring:
     user:
       name: user
       password: passwordEncoder.encode(1234)
+    oauth2:
+      resource server:
+        jwt:
+          audiences:
+
+
 
 springfox:
   documentation:
@@ -28,3 +34,8 @@ springfox:
 logging:
   level:
     root: info
+
+jwt:
+  secretKey: 여기가시크릿키인데좀길게설정해야해
+  time : 30
+

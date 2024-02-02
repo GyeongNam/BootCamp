@@ -24,11 +24,16 @@ public class Item {
 
     private String name;
 
+    private String category;
+
     private long price;
 
     private long stockQuantity;
 
     private String imagePath;
+
+    @Builder.Default
+    private String delYn = "N";
 
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems;
@@ -43,5 +48,25 @@ public class Item {
 
     public void StockQuantityUpdate(long count){
         this.stockQuantity = count;
+    }
+    public void imagePathUpdate(String imagePath){
+        this.imagePath = imagePath;
+    }
+    public void deleteItem(){
+        this.delYn = "Y";
+    }
+
+    public void updateItem(
+            String name,
+            String category,
+            long price,
+            long stockQuantity,
+            String imagePath
+    ){
+        this.name = name;
+        this.category = category;
+        this.price = price;
+        this.stockQuantity = stockQuantity;
+        this.imagePath = imagePath;
     }
 }

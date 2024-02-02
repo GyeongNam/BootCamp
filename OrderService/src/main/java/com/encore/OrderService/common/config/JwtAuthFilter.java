@@ -1,11 +1,12 @@
 package com.encore.OrderService.common.config;
 
-import com.encore.OrderService.common.ResponseDTO;
+import com.encore.OrderService.common.CommonResponse;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,6 +28,9 @@ import java.util.List;
 @Component
 public class JwtAuthFilter extends GenericFilter {
 
+    @Value("${jwt.secretKey}")
+    String secretKey;
+
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         try {
@@ -35,7 +39,7 @@ public class JwtAuthFilter extends GenericFilter {
                 if(!bearerToken.startsWith("Bearer ")){
                     throw new AuthenticationServiceException("토큰 형식이 맞지 않습니다.");
                 }
-                Key key = Keys.hmacShaKeyFor("여기가시크릿키인데좀길게설정해야해".getBytes(StandardCharsets.UTF_8));
+                Key key = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
                 String token = bearerToken.substring(7);
                 // 검증 및 클래임스 추출
                 Claims claims = Jwts.parserBuilder()
@@ -56,7 +60,7 @@ public class JwtAuthFilter extends GenericFilter {
             HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
             httpServletResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
             httpServletResponse.setContentType("application/json");
-            httpServletResponse.getWriter().write(ResponseDTO.responseErrorMassage(HttpStatus.UNAUTHORIZED, e.getMessage()).toString());
+            httpServletResponse.getWriter().write(CommonResponse.responseErrorMassage(HttpStatus.UNAUTHORIZED, e.getMessage()).toString());
         }
     }
 }

@@ -3,6 +3,7 @@ package com.encore.OrderService.common.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -15,7 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
-//@EnableGlobalMethodSecurity(prePostEnabled = true) // 6.* 부터는 자동으로 true 설정
+@EnableGlobalMethodSecurity(prePostEnabled = true) // 6.* 부터는 자동으로 true 설정
 public class SecurityConfig {
 
     private final JwtAuthFilter jwtAuthFilter;
@@ -45,7 +46,7 @@ public class SecurityConfig {
                                         "api/member/create",
                                         "api/doLogin",
                                         "api/items",
-                                        "api/item/image/**",
+                                        "api/item/image/*",
                                         "api/login",
                                         "/login"
                                         )

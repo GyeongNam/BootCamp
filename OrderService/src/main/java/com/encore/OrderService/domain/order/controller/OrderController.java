@@ -1,7 +1,6 @@
 package com.encore.OrderService.domain.order.controller;
 
-import com.encore.OrderService.common.ExceptionHandlerClass;
-import com.encore.OrderService.common.ResponseDTO;
+import com.encore.OrderService.common.CommonResponse;
 import com.encore.OrderService.domain.order.reqdto.OrderingReqCreateDTO;
 import com.encore.OrderService.domain.order.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,23 +21,23 @@ public class OrderController {
     }
 
     @PostMapping("/order/new")
-    public ResponseEntity<ResponseDTO> orderCreate(@RequestBody OrderingReqCreateDTO orderingReqCreateDTO){
-        return ResponseDTO.responseMassage(HttpStatus.CREATED, orderService.orderAdd(orderingReqCreateDTO));
+    public ResponseEntity<CommonResponse> orderCreate(@RequestBody OrderingReqCreateDTO orderingReqCreateDTO){
+        return CommonResponse.responseMassage(HttpStatus.CREATED, orderService.orderAdd(orderingReqCreateDTO));
     }
 
     @GetMapping("/orders")
-    public ResponseEntity<ResponseDTO> orderList(Pageable pageable){
-        return ResponseDTO.responseMassage(HttpStatus.OK, orderService.orderingFindAll(pageable));
+    public ResponseEntity<CommonResponse> orderList(Pageable pageable){
+        return CommonResponse.responseMassage(HttpStatus.OK, orderService.orderingFindAll(pageable));
     }
 
     @PatchMapping("/order/{id}/cancel")
-    public ResponseEntity<ResponseDTO> orderCancel(@PathVariable Long id){
-        return ResponseDTO.responseMassage(HttpStatus.OK, orderService.orderCancel(id));
+    public ResponseEntity<CommonResponse> orderCancel(@PathVariable Long id){
+        return CommonResponse.responseMassage(HttpStatus.OK, orderService.orderCancel(id));
     }
 
     @GetMapping("/order-items/{id}")
-    public ResponseEntity<ResponseDTO> orderItemList(@PathVariable Long id, Pageable pageable){
-        return ResponseDTO.responseMassage(HttpStatus.OK, orderService.orderItemList(id, pageable));
+    public ResponseEntity<CommonResponse> orderItemList(@PathVariable Long id, Pageable pageable){
+        return CommonResponse.responseMassage(HttpStatus.OK, orderService.orderItemList(id, pageable));
     }
 
 

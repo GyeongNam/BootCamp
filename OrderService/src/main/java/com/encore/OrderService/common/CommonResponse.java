@@ -7,21 +7,21 @@ import org.springframework.http.ResponseEntity;
 
 @Data
 @AllArgsConstructor
-public class ResponseDTO  {
+public class CommonResponse {
     private HttpStatus httpStatus;
     private String message;
     private Object result;
 
-    public static ResponseEntity<ResponseDTO> responseMassage(HttpStatus status, Object object){
+    public static ResponseEntity<CommonResponse> responseMassage(HttpStatus status, Object object){
         return new ResponseEntity<>(
-                new ResponseDTO(status , "성공", object),
+                new CommonResponse(status , "성공", object),
                 status
         );
     }
 
-    public static ResponseEntity<ResponseDTO> responseErrorMassage(HttpStatus status, String message){
+    public static ResponseEntity<CommonResponse> responseErrorMassage(HttpStatus status, String message){
         return new ResponseEntity<>(
-                new ResponseDTO(status , "실패", message),
+                new CommonResponse(status , "실패", message),
                 status
         );
     }
