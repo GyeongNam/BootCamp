@@ -1,26 +1,33 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="여기 사람이 있다구요!"/>
+  <HeaderComponent/>
+<!--  <HomeComponent/>-->
+  <div>
+    <router-view/>
+  </div>
+
+  <FooterComponent/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+/*
+상대 경로
+import HomeComponent from "./components/HomeComponent.vue";
+절대경로
+ */
+// import HomeComponent from "@/components/HomeComponent.vue";
+import HeaderComponent from "@/components/HeaderComponent.vue";
+import FooterComponent from "@/components/FooterComponent.vue";
 export default {
-  name: 'App',
   components: {
-    HelloWorld
+    // HomeComponent,
+    HeaderComponent,
+    FooterComponent
+
   }
+
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
