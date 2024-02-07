@@ -14,7 +14,7 @@ export default {
       const token = localStorage.getItem("token");
       const headers = token ?  {Authorization: `Bearer ${token}`} : {}
       this.memberList = await axios.get("http://localhost:8080/api/members", {headers});
-      this.memberList = this.memberList.data.result.content;
+      this.memberList = this.memberList.data.result?.content;
       console.table(this.memberList);
     }catch (e) {
       console.table(e);
@@ -25,7 +25,7 @@ export default {
 
 <template>
   <div class="container">
-    <div class="page-header"><h1>회원 목록</h1></div>
+    <div class="page-header" style="margin-top: 20px"><h1>회원 목록</h1></div>
     <table class="table">
       <thead>
       <tr>
@@ -33,6 +33,7 @@ export default {
         <th>이름</th>
         <th>email</th>
         <th>권한</th>
+        <th>주문수 </th>
       </tr>
       </thead>
       <tbody>
@@ -41,6 +42,7 @@ export default {
         <td>{{member.name}}</td>
         <td>{{member.email}}</td>
         <td>{{member.role}}</td>
+        <td> <a :href="`/member/${member.id}/orders`"> {{member.orderCount}} </a> </td>
       </tr>
       </tbody>
     </table>

@@ -43,11 +43,14 @@ public class SecurityConfig {
                         authorizeRequest
                                 .requestMatchers(
                                         "/",
-                                        "api/member/create",
+                                        "api/member/**",
                                         "api/doLogin",
                                         "api/items",
                                         "api/item/image/*",
                                         "api/login",
+                                        "api/order/new",
+                                        "/api/orders",
+                                        "/api/order/**",
                                         "/login"
                                         )
                                     .permitAll()

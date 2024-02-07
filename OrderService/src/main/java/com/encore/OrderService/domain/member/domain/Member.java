@@ -65,6 +65,7 @@ public class Member {
                         .zipcode(member.getAddress().getZipcode())
                         .build()
                 )
+                .orderCount(member.getOrderings().size())
                 .createdTime(member.getCreatedTime().toString())
                 .updatedTime(member.getUpdatedTime().toString())
                 .role((member.getRole().toString()))

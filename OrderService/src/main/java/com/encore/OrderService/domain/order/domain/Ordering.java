@@ -45,7 +45,7 @@ public class Ordering {
         if(ordering.getOrderItems() == null){
             return OrderingResDTO.builder()
                     .id(ordering.getId())
-                    .member_id(ordering.getMember().getId())
+                    .email(ordering.getMember().getEmail())
                     .orderStatus(ordering.getOrderStatus().toString())
                     .createdTime(ordering.getCreatedTime())
                     .updatedTime(ordering.getUpdatedTime())
@@ -53,7 +53,7 @@ public class Ordering {
         }else{
             return OrderingResDTO.builder()
                     .id(ordering.getId())
-                    .member_id(ordering.getMember().getId())
+                    .email(ordering.getMember().getEmail())
                     .orderStatus(ordering.getOrderStatus().toString())
                     .orderItems(ordering.getOrderItems().stream().map(
                             OrderItem::OrderItemToOrderItemResDTO

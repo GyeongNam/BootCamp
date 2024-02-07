@@ -1,11 +1,5 @@
 package com.encore.OrderService.domain.order.resdto;
 
-import com.encore.OrderService.domain.item.domain.Item;
-import com.encore.OrderService.domain.member.domain.Member;
-import com.encore.OrderService.domain.order.domain.OrderItem;
-import com.encore.OrderService.domain.order.domain.OrderStatus;
-import com.encore.OrderService.domain.order.domain.Ordering;
-import com.encore.OrderService.domain.order.reqdto.OrderItemReqDTO;
 import lombok.Builder;
 import lombok.Data;
 
@@ -16,7 +10,7 @@ import java.util.List;
 @Builder
 public class OrderingResDTO {
     private Long id;
-    private Long member_id;
+    private String email;
     private String orderStatus;
     private List<OrderItemResDTO> orderItems;
     private LocalDateTime createdTime;

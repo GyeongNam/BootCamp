@@ -62,7 +62,6 @@ public class MemberController {
         return CommonResponse.responseMassage(HttpStatus.OK, map);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/member/myInfo")
     public MemberResDTO myInfo(){
         return memberService.findByInfo();

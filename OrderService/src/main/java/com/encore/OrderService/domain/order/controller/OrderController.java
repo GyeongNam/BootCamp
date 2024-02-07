@@ -31,8 +31,9 @@ public class OrderController {
     }
 
     @PatchMapping("/order/{id}/cancel")
-    public ResponseEntity<CommonResponse> orderCancel(@PathVariable Long id){
-        return CommonResponse.responseMassage(HttpStatus.OK, orderService.orderCancel(id));
+    public ResponseEntity<CommonResponse> orderCancel(@PathVariable Long id, Pageable pageable){
+        orderService.orderCancel(id);
+        return CommonResponse.responseMassage(HttpStatus.OK, orderService.orderingFindAll(pageable));
     }
 
     @GetMapping("/order-items/{id}")

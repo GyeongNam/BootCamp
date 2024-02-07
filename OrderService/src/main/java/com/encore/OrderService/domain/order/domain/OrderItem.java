@@ -45,6 +45,7 @@ public class OrderItem {
         return OrderItemResDTO.builder()
                 .id(orderItem.getId())
                 .quantity(orderItem.getQuantity())
+                .item_name(orderItem.getItem().getName())
                 .item_id(orderItem.getItem().getId())
                 .ordering_id(orderItem.getOrdering().getId())
                 .build();

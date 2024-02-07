@@ -26,9 +26,16 @@ export default {
         const token = response.data.result.token;
         if(token){
           const decoded = jwtDecode(token);
+          console.table(decoded)
           localStorage.setItem("role", decoded.role);
+          localStorage.setItem("email", decoded.sub);
           localStorage.setItem("token",token);
+          /*
+          created 함수는 reload 될때 1번만 실행되는 hook 함수
+          그런데, router.push 를 통한 ㅇ환면전환은 reload 를 실행 시키지 않으므로 앞으로 created 함수 호출이 되지 않음
           this.$router.push("/")
+           */
+          location.href = "/";
         }else{
           console.error("200 ok but not token")
           alert("로그인 실패")
@@ -45,7 +52,7 @@ export default {
 
 <template>
   <div class="container">
-    <div class="page-header">
+    <div class="page-header" style="margin-top: 20px">
       <h1>로그인</h1>
     </div>
     <form @submit.prevent="doLogin">

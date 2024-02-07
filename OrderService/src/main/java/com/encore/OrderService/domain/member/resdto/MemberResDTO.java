@@ -13,6 +13,7 @@ public class MemberResDTO {
     private String password;
     private Address address;
     private String role;
+    private long orderCount;
     private String createdTime;
     private String updatedTime;
 }
