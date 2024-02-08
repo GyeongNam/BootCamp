@@ -3,6 +3,14 @@ import OrderListComponent from "@/components/OrderListComponent.vue";
 export default {
   components:{
     OrderListComponent
+  },
+  data() {
+    return {
+      apiUrl: ''
+    };
+  },
+  created() {
+    this.apiUrl = `${process.env.VUE_APP_API_BASE_URL}/api/orders`;
   }
 }
 </script>
@@ -10,7 +18,7 @@ export default {
 <template>
 <OrderListComponent
     :isAdmin="true"
-    apiUrl="http://localhost:8080/api/orders"
+    :apiUrl=this.apiUrl
 />
 </template>
 

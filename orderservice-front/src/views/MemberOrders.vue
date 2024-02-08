@@ -5,13 +5,23 @@ export default {
   components:{
     OrderListComponent
   }
+  ,
+  data() {
+    return {
+      apiUrl: ''
+    };
+  }
+  ,
+  created() {
+    this.apiUrl = `${process.env.VUE_APP_API_BASE_URL}/api/member/${this.id}/orders`;
+  }
 }
 </script>
 
 <template>
   <OrderListComponent
       :isAdmin="true"
-      :apiUrl="`http://localhost:8080/api/member/${id}/orders`"
+      :apiUrl=apiUrl
   />
 </template>
 

@@ -5,7 +5,6 @@ import '@/assets/css/bootstrap.min.css'
 import axios from 'axios';
 
 
-
 // index.html 의 id 의 app 에 마운트가 되도록 하는 코드
 // createApp(App).mount('#app')
 

@@ -22,7 +22,7 @@ export default {
           email : this.email,
           password : this.password
         }
-        const response = await axios.post("http://localhost:8080/api/doLogin", loginData);
+        const response = await axios.post(`${process.env.VUE_APP_API_BASE_URL}/api/doLogin`, loginData);
         const token = response.data.result.token;
         if(token){
           const decoded = jwtDecode(token);

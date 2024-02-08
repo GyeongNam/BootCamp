@@ -58,7 +58,7 @@ public class ItemService {
                 .build();
         item = itemRepository.save(item);
 
-        Path path = Paths.get("C:\\Users\\Playdata\\Desktop\\새 폴더",  item.getId() + "_" + fileName );
+        Path path = Paths.get("C:\\Users\\Playdata\\Documents\\GitHub\\BootCamp\\OrderService\\src\\main\\java\\com\\encore\\OrderService\\image",  item.getId() + "_" + fileName );
         item.imagePathUpdate(path.toString());
         try {
             byte[] bytes = multipartFile.getBytes();
@@ -108,7 +108,7 @@ public class ItemService {
         Item item = this.findById(id);
         MultipartFile multipartFile = itemReqDTO.getItemImage();
         String fileName = multipartFile.getOriginalFilename();
-        Path path = Paths.get("C:\\Users\\Playdata\\Desktop\\새 폴더",  item.getId() + "_" + fileName );
+        Path path = Paths.get("C:\\Users\\Playdata\\Documents\\GitHub\\BootCamp\\OrderService\\src\\main\\java\\com\\encore\\OrderService\\image",  item.getId() + "_" + fileName );
         item.updateItem(
                 itemReqDTO.getName(),
                 itemReqDTO.getCategory(),
@@ -151,34 +151,33 @@ public class ItemService {
                     predicatesArr[i] = predicates.get(i);
                 }
 
-                Predicate predicate = criteriaBuilder.and(predicatesArr);
-                return predicate;
+                return criteriaBuilder.and(predicatesArr);
             }
         };
 
-//        return itemRepository.findAll(spec, pageable).map(
-//                p -> ItemResDTO.builder()
-//                        .id(p.getId())
-//                        .name(p.getName())
-//                        .category(p.getCategory())
-//                        .price(p.getPrice())
-//                        .stockQuantity(p.getStockQuantity())
-//                        .build()
-//        );
-
-        //findByNameContainingAndCategoryContainingAndDelYn
-        return itemRepository.findAllByDelYnAndCategoryContainingAndNameContaining(
-                        "N",
-                        itemSearchDTO.getCategory(),
-                        itemSearchDTO.getName(),
-                        pageable)
-                .map(p->ItemResDTO.builder()
+        return itemRepository.findAll(spec, pageable).map(
+                p -> ItemResDTO.builder()
                         .id(p.getId())
                         .name(p.getName())
                         .category(p.getCategory())
                         .price(p.getPrice())
                         .stockQuantity(p.getStockQuantity())
                         .build()
-                );
+        );
+
+        //findByNameContainingAndCategoryContainingAndDelYn
+//        return itemRepository.findAllByDelYnAndCategoryContainingAndNameContaining(
+//                        "N",
+//                        itemSearchDTO.getCategory(),
+//                        itemSearchDTO.getName(),
+//                        pageable)
+//                .map(p->ItemResDTO.builder()
+//                        .id(p.getId())
+//                        .name(p.getName())
+//                        .category(p.getCategory())
+//                        .price(p.getPrice())
+//                        .stockQuantity(p.getStockQuantity())
+//                        .build()
+//                );
     }
 }

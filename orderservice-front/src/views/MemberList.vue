@@ -13,7 +13,7 @@ export default {
     try {
       const token = localStorage.getItem("token");
       const headers = token ?  {Authorization: `Bearer ${token}`} : {}
-      this.memberList = await axios.get("http://localhost:8080/api/members", {headers});
+      this.memberList = await axios.get(`${process.env.VUE_APP_API_BASE_URL}/api/members`, {headers});
       this.memberList = this.memberList.data.result?.content;
       console.table(this.memberList);
     }catch (e) {

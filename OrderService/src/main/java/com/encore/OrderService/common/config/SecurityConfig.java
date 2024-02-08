@@ -46,7 +46,7 @@ public class SecurityConfig {
                                         "api/member/**",
                                         "api/doLogin",
                                         "api/items",
-                                        "api/item/image/*",
+                                        "api/item/*/image",
                                         "api/login",
                                         "api/order/new",
                                         "/api/orders",

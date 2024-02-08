@@ -19,7 +19,7 @@
           <a class="nav-link" href="/post/list">장바구니</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/post/list">상품목록</a>
+          <a class="nav-link" href="/items">상품목록</a>
         </li>
         <li class="nav-item" v-if="isLongin">
           <a class="nav-link" href="/mypage">MyPage</a>
