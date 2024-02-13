@@ -1,7 +1,7 @@
 <template>
   <ItemListComponent
-      :isAdmin="false"
-      page-title="상품 목록"
+      :isAdmin="true"
+      page-title="상품 관리"
   />
 </template>
 
@@ -9,7 +9,7 @@
 import ItemListComponent from "@/components/ItemListComponent.vue";
 
 export default {
-  components:{
+  components: {
     ItemListComponent
   },
 }

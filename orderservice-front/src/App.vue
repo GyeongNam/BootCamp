@@ -11,10 +11,10 @@
 <script>
 /*
 상대 경로
-import HomeComponent from "./components/HomeComponent.vue";
+import HomeComponent from "./components/BasicComponent.vue";
 절대경로
  */
-// import HomeComponent from "@/components/HomeComponent.vue";
+// import HomeComponent from "@/components/BasicComponent.vue";
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
 export default {

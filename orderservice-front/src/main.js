@@ -2,8 +2,8 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router/index.js'
 import '@/assets/css/bootstrap.min.css'
-import axios from 'axios';
-
+import axios from 'axios'
+import store from './store/cart.js'
 
 // index.html 의 id 의 app 에 마운트가 되도록 하는 코드
 // createApp(App).mount('#app')
@@ -22,4 +22,5 @@ axios.interceptors.response.use(response => response, error => {
 })
 
 app.use(router);
+app.use(store);
 app.mount('#app')
