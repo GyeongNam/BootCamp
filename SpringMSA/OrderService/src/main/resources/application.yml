@@ -1,0 +1,41 @@
+
+spring:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://localhost:3306/orderservice
+    username: root
+    password: 1234
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MariaDBDialect
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  mvc:
+    path match:
+      matching-strategy: ant_path_matcher
+  security:
+    user:
+      name: user
+      password: passwordEncoder.encode(1234)
+    oauth2:
+      resource server:
+        jwt:
+          audiences:
+
+
+
+springfox:
+  documentation:
+    swagger-ui:
+      enabled: true
+
+logging:
+  level:
+    root: info
+
+jwt:
+  secretKey: 여기가시크릿키인데좀길게설정해야해
+  time : 30
+
