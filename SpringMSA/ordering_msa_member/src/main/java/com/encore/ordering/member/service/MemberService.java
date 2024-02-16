@@ -5,14 +5,15 @@ import com.encore.ordering.member.dto.LoginReqDto;
 import com.encore.ordering.member.dto.MemberCreateReqDto;
 import com.encore.ordering.member.dto.MemberResponseDto;
 import com.encore.ordering.member.repository.MemberRepository;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import javax.persistence.EntityNotFoundException;
-import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -57,5 +58,9 @@ public class MemberService {
             throw new IllegalArgumentException("Password doesn't match");
         }
         return member;
+    }
+
+    public MemberResponseDto findByEmail(String email) {
+        return MemberResponseDto.toMemberResponseDto(memberRepository.findByEmail(email).orElseThrow(EntityNotFoundException::new));
     }
 }

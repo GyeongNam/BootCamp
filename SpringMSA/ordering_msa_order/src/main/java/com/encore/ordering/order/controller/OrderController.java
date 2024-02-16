@@ -5,16 +5,12 @@ import com.encore.ordering.order.domain.Ordering;
 import com.encore.ordering.order.dto.OrderReqDto;
 import com.encore.ordering.order.dto.OrderResDto;
 import com.encore.ordering.order.service.OrderService;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class OrderController {
@@ -27,8 +23,11 @@ public class OrderController {
     }
 
     @PostMapping("/order/create")
-    public ResponseEntity<CommonResponse> orderCreate(@RequestBody List<OrderReqDto> orderReqDtos) {
-        Ordering ordering = orderService.create(orderReqDtos);
+    public ResponseEntity<CommonResponse> orderCreate(
+            @RequestBody List<OrderReqDto> orderReqDtos,
+            @RequestHeader("myEmail")String email
+    ) {
+        Ordering ordering = orderService.create(orderReqDtos, email);
         CommonResponse commonResponse = new CommonResponse(HttpStatus.CREATED, "Order created successfully", ordering.getId());
         return new ResponseEntity<>(commonResponse, HttpStatus.CREATED);
     }

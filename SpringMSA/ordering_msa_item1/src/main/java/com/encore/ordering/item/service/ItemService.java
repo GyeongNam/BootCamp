@@ -1,25 +1,11 @@
 package com.encore.ordering.item.service;
 
 import com.encore.ordering.item.domain.Item;
+import com.encore.ordering.item.dto.ItemQuantityDto;
 import com.encore.ordering.item.dto.ItemReqDto;
 import com.encore.ordering.item.dto.ItemResDto;
 import com.encore.ordering.item.dto.ItemSearchDto;
 import com.encore.ordering.item.repository.ItemRepository;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-import javax.persistence.EntityNotFoundException;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import javax.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -29,6 +15,22 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import javax.transaction.Transactional;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Transactional
 @Slf4j
@@ -134,5 +136,21 @@ public class ItemService {
                 .imagePath(item.getImagePath())
                 .build()).collect(Collectors.toList());
         return itemResDtos;
+    }
+
+    public void updateQuantity(ItemQuantityDto itemQuantityDto) {
+        Item item = itemRepository.findById(itemQuantityDto.getId()).orElseThrow(EntityNotFoundException::new);
+        item.updateStockQuantity(itemQuantityDto.getStockQuantity());
+    }
+
+    public ItemResDto findById(Long id) {
+       Item item = itemRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+       return ItemResDto.builder()
+               .id(item.getId())
+               .name(item.getName())
+               .category(item.getCategory())
+               .stockQuantity(item.getStockQuantity())
+               .price(item.getPrice())
+               .build();
     }
 }

@@ -2,11 +2,11 @@ package com.encore.ordering.item.controller;
 
 import com.encore.ordering.common.CommonResponse;
 import com.encore.ordering.item.domain.Item;
+import com.encore.ordering.item.dto.ItemQuantityDto;
 import com.encore.ordering.item.dto.ItemReqDto;
 import com.encore.ordering.item.dto.ItemResDto;
 import com.encore.ordering.item.dto.ItemSearchDto;
 import com.encore.ordering.item.service.ItemService;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Pageable;
@@ -14,12 +14,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class ItemController {
@@ -64,5 +61,17 @@ public class ItemController {
         Item item = itemService.delete(id);
         CommonResponse commonResponse = new CommonResponse(HttpStatus.OK, "Item deleted successfully", item.getId());
         return new ResponseEntity<>(commonResponse, HttpStatus.OK);
+    }
+
+    @PostMapping("/item/updateQuantity")
+    public ResponseEntity<Item> updateQuantity(@RequestBody ItemQuantityDto itemQuantityDto){
+        itemService.updateQuantity(itemQuantityDto);
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
+    @GetMapping("/item/{id}")
+    public ResponseEntity<ItemResDto> findById(@PathVariable Long id) {
+        ItemResDto itemResDto = itemService.findById(id);
+        return new ResponseEntity<>(itemResDto, HttpStatus.OK);
     }
 }

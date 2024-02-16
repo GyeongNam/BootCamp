@@ -1,4 +1,4 @@
-package com.encore.ordering.item.dto;
+package com.encore.ordering.order.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ItemResDto {
+public class ItemDto {
     private Long id;
     private String name;
     private String category;
